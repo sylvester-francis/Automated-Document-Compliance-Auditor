@@ -68,6 +68,7 @@ python app.py
 4. View compliance issues and get AI-powered suggestions for remediation
 
 ## Project Structure
+```bash
 Automated-Document-Compliance-Auditor/
 ├── app/                   # Flask application
 │   ├── init.py            # App initialization
@@ -83,6 +84,7 @@ Automated-Document-Compliance-Auditor/
 ├── app.py                 # Application runner
 ├── requirements.txt       # Python dependencies
 └── README.md              # Project documentation
+```
 
 ## Portfolio Project Notes
 
