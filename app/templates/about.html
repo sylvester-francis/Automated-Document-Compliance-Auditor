@@ -1,0 +1,61 @@
+<!-- app/templates/about.html -->
+{% extends "base.html" %}
+
+{% block title %}About - Document Compliance Auditor{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>About the Document Compliance Auditor</h1>
+    
+    <div class="row mt-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Project Overview</h5>
+                    <p class="card-text">
+                        The Automated Document Compliance Auditor is a tool designed to help organizations ensure their 
+                        documents comply with various regulations such as GDPR and HIPAA. It uses a combination of 
+                        rule-based pattern matching and AI-powered suggestions to identify missing clauses and 
+                        suggest remediation.
+                    </p>
+                    
+                    <h5 class="card-title mt-4">Key Features</h5>
+                    <ul>
+                        <li><strong>Document Processing:</strong> Extract text from PDF, DOCX, and TXT files</li>
+                        <li><strong>Compliance Checking:</strong> Verify documents against GDPR, HIPAA, and other compliance standards</li>
+                        <li><strong>AI Suggestions:</strong> Generate remediation suggestions using advanced language models</li>
+                        <li><strong>Interactive UI:</strong> Highlight issues directly in the document with real-time feedback</li>
+                    </ul>
+                    
+                    <h5 class="card-title mt-4">Technologies Used</h5>
+                    <ul>
+                        <li><strong>Backend:</strong> Python with Flask</li>
+                        <li><strong>Database:</strong> MongoDB for document storage</li>
+                        <li><strong>Text Extraction:</strong> PyPDF2, python-docx</li>
+                        <li><strong>AI Integration:</strong> OpenAI API</li>
+                        <li><strong>Frontend:</strong> HTML, CSS, JavaScript with HTMX for interactivity</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    Quick Links
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <a href="{{ url_for('documents.upload_document') }}">Upload a Document</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ url_for('documents.list_documents') }}">View Documents</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
