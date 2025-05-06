@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Document Compliance Auditor{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Automated Document Compliance Auditor</h1>
+    <p class="lead">
+        Scan contracts and regulatory filings for missing clauses and get AI-powered suggestions for remediation.
+    </p>
+    <hr class="my-4">
+    <p>
+        Upload your documents and check them against GDPR, HIPAA, and other compliance standards.
+    </p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="{{ url_for('documents.upload_document') }}" role="button">Upload Document</a>
+        <a class="btn btn-secondary btn-lg" href="{{ url_for('documents.list_documents') }}" role="button">View Documents</a>
+    </p>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Rule-based Analysis</h5>
+                <p class="card-text">
+                    Uses pattern matching and semantic analysis to detect compliance issues.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">AI-Powered Suggestions</h5>
+                <p class="card-text">
+                    Get remediation suggestions using advanced language models.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Real-time Highlighting</h5>
+                <p class="card-text">
+                    See compliance issues directly in your document with interactive highlighting.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
