@@ -36,7 +36,7 @@ The Automated Document Compliance Auditor is a Flask-based web application that 
 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/Automated-Document-Compliance-Auditor.git
+git clone https://github.com/sylvester-francis/Automated-Document-Compliance-Auditor.git
 cd Automated-Document-Compliance-Auditor
 ```
 2. Create and activate a virtual environment
