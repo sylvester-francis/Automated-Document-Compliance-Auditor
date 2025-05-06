@@ -1,0 +1,64 @@
+<!-- app/templates/documents/view.html -->
+{% extends "base.html" %}
+
+{% block title %}View Document{% endblock %}
+
+{% block content %}
+<h1>{{ document.filename }}</h1>
+
+<div class="row mb-3">
+    <div class="col-md-12">
+        <a href="{{ url_for('documents.list_documents') }}" class="btn btn-secondary">Back to Documents</a>
+        <a href="{{ url_for('compliance.check_document', document_id=document._id) }}" class="btn btn-primary">Check Compliance</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                Document Content
+            </div>
+            <div class="card-body document-viewer">
+                {% for paragraph in document.paragraphs %}
+                <div class="document-paragraph {% if document.compliance_issues|selectattr('paragraph_id', 'equalto', paragraph.id)|list %}highlight{% endif %}" id="para-{{ paragraph.id }}">
+                    {{ paragraph.text }}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                Document Info
+            </div>
+            <div class="card-body">
+                <p><strong>Filename:</strong> {{ document.filename }}</p>
+                <p><strong>Uploaded:</strong> {{ document.created_at.strftime('%Y-%m-%d %H:%M') if document.created_at else 'Unknown' }}</p>
+                
+                {% if document.compliance_score is defined %}
+                <p>
+                    <strong>Compliance Score:</strong> 
+                    <span class="badge {% if document.compliance_score >= 80 %}bg-success{% elif document.compliance_score >= 50 %}bg-warning{% else %}bg-danger{% endif %}">
+                        {{ document.compliance_score|round(1) }}%
+                    </span>
+                </p>
+                {% endif %}
+            </div>
+        </div>
+        
+        {% if document.compliance_issues %}
+        <div class="card">
+            <div class="card-header">
+                Compliance Issues
+            </div>
+            <div class="card-body">
+                <p>Found {{ document.compliance_issues|length }} compliance issues</p>
+                <a href="{{ url_for('compliance.check_document', document_id=document._id) }}" class="btn btn-primary">View Full Report</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

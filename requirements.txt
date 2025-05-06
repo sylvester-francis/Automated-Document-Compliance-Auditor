@@ -10,6 +10,7 @@ elastic-transport==8.17.1
 elasticsearch==9.0.1
 filelock==3.18.0
 Flask==3.1.0
+Flask-PyMongo==3.0.1
 Flask-WTF==1.2.2
 fsspec==2025.3.2
 gunicorn==23.0.0

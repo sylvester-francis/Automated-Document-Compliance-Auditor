@@ -30,6 +30,11 @@ def create_app(test_config=None):
     app.register_blueprint(documents_bp)
     app.register_blueprint(compliance_bp)
     
+    # Seed database with sample data
+    with app.app_context():
+        from app.services.seed_service import seed_compliance_rules
+        seed_compliance_rules()
+        
     # Simple route to test the app
     @app.route('/ping')
     def ping():

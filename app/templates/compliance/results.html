@@ -1,0 +1,90 @@
+<!-- app/templates/compliance/results.html -->
+{% extends "base.html" %}
+
+{% block title %}Compliance Results{% endblock %}
+
+{% block content %}
+<h1>Compliance Check Results</h1>
+
+<div class="row mb-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ document.filename }}</h5>
+                <p class="card-text">
+                    <strong>Compliance Score:</strong> 
+                    <span class="badge {% if results.score >= 80 %}bg-success{% elif results.score >= 50 %}bg-warning{% else %}bg-danger{% endif %}">
+                        {{ results.score|round(1) }}%
+                    </span>
+                </p>
+                <p class="card-text">
+                    <strong>Status:</strong> 
+                    <span class="badge {% if results.status == 'compliant' %}bg-success{% elif results.status == 'partially_compliant' %}bg-warning{% else %}bg-danger{% endif %}">
+                        {{ results.status|replace('_', ' ')|title }}
+                    </span>
+                </p>
+                <a href="{{ url_for('documents.view_document', document_id=document._id) }}" class="btn btn-primary">Back to Document</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="document-viewer">
+            {% for paragraph in document.paragraphs %}
+                <div class="document-paragraph {% if paragraph.id in results.issues|map(attribute='paragraph_id')|list %}highlight{% endif %}" id="para-{{ paragraph.id }}">
+                    {{ paragraph.text }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                Compliance Issues
+            </div>
+            <div class="card-body">
+                {% if results.issues %}
+                    {% for issue in results.issues %}
+                        <div class="compliance-issue compliance-issue-{{ issue.severity }}" id="issue-{{ issue.issue_id }}">
+                            <h5>{{ issue.compliance_type }} Issue</h5>
+                            <p>{{ issue.description }}</p>
+                            <p>
+                                <small>Severity: <span class="badge {% if issue.severity == 'high' %}bg-danger{% elif issue.severity == 'medium' %}bg-warning{% else %}bg-info{% endif %}">
+                                    {{ issue.severity|title }}
+                                </span></small>
+                            </p>
+                        <div class="suggestions mt-2">
+                            {% if issue.suggestions %}
+                                <p><strong>Suggestions:</strong></p>
+                                <ul>
+                                    {% for suggestion in issue.suggestions %}
+                                        <li>{{ suggestion }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <button class="btn btn-sm btn-outline-primary"
+                                        hx-get="{{ url_for('compliance.get_suggestion', document_id=document._id, issue_id=issue.issue_id) }}"
+                                        hx-target="#suggestion-{{ issue.issue_id }}"
+                                        hx-indicator="#loading-{{ issue.issue_id }}">
+                                    Generate Suggestion
+                                </button>
+                                <div id="loading-{{ issue.issue_id }}" class="htmx-indicator">
+                                    <div class="spinner-border spinner-border-sm text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                                <div id="suggestion-{{ issue.issue_id }}"></div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="alert alert-success">No compliance issues found.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}    
