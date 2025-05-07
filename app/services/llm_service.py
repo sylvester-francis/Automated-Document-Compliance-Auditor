@@ -1,15 +1,15 @@
 # app/services/llm_service.py
-import openai
+import logging
+from typing import Dict, Any
 from flask import current_app
-from typing import List, Dict, Any
+from anthropic import Anthropic
 
-def initialize_openai():
-    """Initialize OpenAI API with key from config"""
-    openai.api_key = current_app.config['OPENAI_API_KEY']
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 def generate_suggestion(document: Dict, issue: Dict) -> str:
     """
-    Generate suggestion for fixing a compliance issue using OpenAI
+    Generate suggestion for fixing a compliance issue using Anthropic's Claude
     
     Args:
         document: Document data
@@ -18,16 +18,26 @@ def generate_suggestion(document: Dict, issue: Dict) -> str:
     Returns:
         Suggestion text
     """
+    # Print to standard output to ensure it's visible
+    print("===== CLAUDE API CALL STARTED =====")
+    
     # Check if we have an API key
-    if not current_app.config['OPENAI_API_KEY']:
-        return "Please configure OpenAI API key to get AI-powered suggestions."
+    api_key = current_app.config.get('ANTHROPIC_API_KEY')
+    if not api_key:
+        logger.warning("No Anthropic API key configured")
+        return "Please configure Anthropic API key to get AI-powered suggestions."
     
     try:
-        initialize_openai()
+        # Log that we're about to make an API call
+        logger.info(f"Calling Anthropic API for suggestion on issue: {issue.get('issue_id')}")
+        
+        # Initialize Anthropic client
+        client = Anthropic(api_key=api_key)
         
         # Get the paragraph with the issue
         paragraph = next((p for p in document.get("paragraphs", []) if p["id"] == issue["paragraph_id"]), None)
         if not paragraph:
+            logger.error(f"Could not find paragraph with ID: {issue.get('paragraph_id')}")
             return "Could not find paragraph."
         
         # Create prompt
@@ -46,20 +56,23 @@ def generate_suggestion(document: Dict, issue: Dict) -> str:
         Keep your response concise and focused on the solution.
         """
         
-        # Generate suggestion using the ChatCompletion API (newer than Completion API)
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are a legal and compliance expert specializing in GDPR, HIPAA and other regulatory frameworks."},
-                {"role": "user", "content": prompt}
-            ],
+        # Generate suggestion using Claude
+        logger.info("Sending request to Anthropic API")
+        message = client.messages.create(
+            model="claude-3-haiku-20240307",
             max_tokens=300,
-            temperature=0.5
+            temperature=0.5,
+            system="You are a legal and compliance expert specializing in GDPR, HIPAA and other regulatory frameworks.",
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
         )
         
-        suggestion = response.choices[0].message.content.strip()
+        suggestion = message.content[0].text
+        logger.info(f"Received response from Anthropic API: {suggestion[:50]}...")
+        print("===== CLAUDE API CALL COMPLETED =====")
         return suggestion
         
     except Exception as e:
-        current_app.logger.error(f"Error generating suggestion: {str(e)}")
-        return "Error generating suggestion. Please try again later."
+        logger.error(f"Error generating suggestion with Anthropic: {str(e)}", exc_info=True)
+        return f"Error generating suggestion: {str(e)}"

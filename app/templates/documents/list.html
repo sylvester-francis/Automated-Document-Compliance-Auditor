@@ -11,10 +11,18 @@
       <div class="col-md-4 mb-3">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">{{ document.title or document.filename }}</h5>
+            <h5 class="card-title">{{ document.filename or document.filename }}</h5>
             <p class="card-text">
-              <small class="text-muted">Uploaded: {{ document.created_at|default('Unknown') }}</small>
+              <small class="text-muted">Uploaded: {{ document.created_at.strftime('%Y-%m-%d %H:%M') if document.created_at else 'Unknown' }}</small>
             </p>
+            {% if document.compliance_score is defined %}
+            <p>
+              <strong>Compliance Score:</strong> 
+              <span class="badge {% if document.compliance_score >= 80 %}bg-success{% elif document.compliance_score >= 50 %}bg-warning{% else %}bg-danger{% endif %}">
+                {{ document.compliance_score|round(1) }}%
+              </span>
+            </p>
+            {% endif %}
             <a href="{{ url_for('documents.view_document', document_id=document._id) }}" class="btn btn-primary">View</a>
             <a href="{{ url_for('compliance.check_document', document_id=document._id) }}" class="btn btn-outline-secondary">Check Compliance</a>
           </div>

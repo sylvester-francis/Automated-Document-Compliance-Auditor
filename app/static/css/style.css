@@ -43,6 +43,10 @@
     padding: 2px 0;
 }
 
+.highlight-active {
+    background-color: rgba(255, 193, 7, 0.6);
+}
+
 .highlight-high {
     background-color: rgba(220, 53, 69, 0.3);
 }
@@ -61,4 +65,23 @@
     background-color: #f8f9fa;
     padding: 15px;
     margin-bottom: 15px;
+}
+
+/* HTMX indicators */
+.htmx-indicator {
+    display: none;
+    margin-top: 10px;
+}
+
+.htmx-request .htmx-indicator {
+    display: flex;
+    align-items: center;
+}
+
+/* Debug styles */
+.debug-section {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #f8f9fa;
 }

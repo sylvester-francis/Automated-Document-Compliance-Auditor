@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}Debug Claude Integration{% endblock %}
+
+{% block content %}
+<h1>Claude Integration Debug Page</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Test Claude API Integration</h5>
+        
+        <div class="compliance-issue">
+            <p>This is a test issue for debugging purposes.</p>
+            
+            <div class="suggestions mt-2">
+                <button class="btn btn-sm btn-outline-primary"
+                        hx-get="{{ url_for('main.test_claude') }}"
+                        hx-target="#suggestion-test"
+                        hx-indicator="#loading-test">
+                    Test Claude API
+                </button>
+                <div id="loading-test" class="htmx-indicator">
+                    <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                    <span class="ms-2">Testing Claude API...</span>
+                </div>
+                <div id="suggestion-test"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Claude API Configuration</h5>
+        <p>Check your Anthropic API key configuration:</p>
+        <ul>
+            <li><strong>API Key Configured:</strong> {{ 'Yes' if config.ANTHROPIC_API_KEY else 'No' }}</li>
+            <li><strong>API Key Length:</strong> {{ config.ANTHROPIC_API_KEY|length if config.ANTHROPIC_API_KEY else 'N/A' }}</li>
+        </ul>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Mock Test Data</h5>
+        <p>You can use these test data to debug the compliance checking and suggestion generation:</p>
+        
+        <div class="mock-document mb-3">
+            <h6>Sample Document:</h6>
+            <pre class="bg-light p-3">
+{
+  "_id": "test-doc",
+  "filename": "test-document.txt",
+  "document_type": "privacy_policy",
+  "paragraphs": [
+    {
+      "id": "para-1",
+      "text": "We collect personal information from users of our service."
+    },
+    {
+      "id": "para-2", 
+      "text": "The data is stored in our secure database."
+    },
+    {
+      "id": "para-3",
+      "text": "We may share your information with third parties."
+    }
+  ]
+}
+            </pre>
+        </div>
+        
+        <div class="mock-issues">
+            <h6>Sample Compliance Issues:</h6>
+            <pre class="bg-light p-3">
+[
+  {
+    "issue_id": "issue-1",
+    "paragraph_id": "para-1",
+    "description": "Missing information about the specific types of personal data collected",
+    "compliance_type": "GDPR",
+    "severity": "high"
+  },
+  {
+    "issue_id": "issue-2",
+    "paragraph_id": "para-2",
+    "description": "Missing specific security measures for data protection",
+    "compliance_type": "GDPR",
+    "severity": "medium"
+  },
+  {
+    "issue_id": "issue-3",
+    "paragraph_id": "para-3",
+    "description": "Missing information about the right to access personal data",
+    "compliance_type": "GDPR",
+    "severity": "high"
+  },
+  {
+    "issue_id": "issue-4",
+    "paragraph_id": "para-3",
+    "description": "Missing information about third parties with whom data is shared",
+    "compliance_type": "HIPAA",
+    "severity": "high"
+  }
+]
+            </pre>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">System Information</h5>
+        <ul>
+            <li><strong>Python Version:</strong> {{ config.get('PYTHON_VERSION', 'Unknown') }}</li>
+            <li><strong>Flask Version:</strong> {{ config.get('FLASK_VERSION', 'Unknown') }}</li>
+            <li><strong>Application Mode:</strong> {{ 'Debug' if config.DEBUG else 'Production' }}</li>
+            <li><strong>MongoDB Connection:</strong> {{ 'Configured' if config.MONGO_URI else 'Not Configured' }}</li>
+        </ul>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Log Files</h5>
+        <p>Check your application logs for more detailed information.</p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <a href="{{ url_for('main.index') }}" class="btn btn-secondary">Back to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

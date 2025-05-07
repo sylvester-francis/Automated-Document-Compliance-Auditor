@@ -1,67 +1,129 @@
-# app/services/rule_engine.py
-import re
 import uuid
-from typing import List, Dict, Any
-from flask import current_app
+from typing import Dict, List, Any, Set
+from enum import Enum
+from app.extensions import mongo
+class RuleType(Enum):
+    REGEX = "regex"
+    KEYWORD = "keyword"
 
-from app.models.compliance import ComplianceType, RuleType, Severity, ComplianceRule, ComplianceIssue
+class ComplianceIssue:
+    def __init__(self, issue_id: str, rule_id: str, paragraph_id: str, description: str, 
+                 severity: str, compliance_type: str, suggestions: List[str] = None):
+        self.issue_id = issue_id
+        self.rule_id = rule_id
+        self.paragraph_id = paragraph_id
+        self.description = description
+        self.severity = severity
+        self.compliance_type = compliance_type
+        self.suggestions = suggestions if suggestions is not None else []
+    
+    def to_dict(self) -> Dict:
+        return {
+            "issue_id": self.issue_id,
+            "rule_id": self.rule_id,
+            "paragraph_id": self.paragraph_id,
+            "description": self.description,
+            "severity": self.severity,
+            "compliance_type": self.compliance_type,
+            "suggestions": self.suggestions
+        }
 
-def get_compliance_rules(compliance_types: List[str]) -> List[ComplianceRule]:
+def get_compliance_rules(compliance_types: List[str]) -> List[Dict]:
     """
-    Get compliance rules for the specified compliance types
+    Get compliance rules for specified compliance types
     
     Args:
-        compliance_types: List of compliance types (e.g., ['GDPR', 'HIPAA'])
+        compliance_types: List of compliance type names
         
     Returns:
-        List of ComplianceRule objects
+        List of compliance rule objects
     """
-    from app.extensions import mongo
+    # In a real application, these would come from a database
+    rules = []
     
-    rules_data = list(mongo.db.compliance_rules.find({
-        "compliance_type": {"$in": compliance_types},
-        "is_active": True
-    }))
+    if "GDPR" in compliance_types:
+        rules.extend([
+            {
+                "rule_id": "gdpr-001",
+                "rule_type": RuleType.KEYWORD,
+                "compliance_type": "GDPR",
+                "description": "Missing information about the right to access personal data",
+                "severity": "high",
+                "keywords": ["right to access", "access your data", "access personal information"],
+                "suggestion_template": "You have the right to access and obtain a copy of your personal data that we process. To exercise this right, please contact us at privacy@example.com with your request."
+            },
+            {
+                "rule_id": "gdpr-002",
+                "rule_type": RuleType.KEYWORD,
+                "compliance_type": "GDPR",
+                "description": "Missing information about the right to erasure (right to be forgotten)",
+                "severity": "high",
+                "keywords": ["right to erasure", "right to be forgotten", "delete your data"],
+                "suggestion_template": "You have the right to request the deletion of your personal data in certain circumstances. To exercise your right to erasure, please contact our Data Protection Officer at dpo@example.com."
+            },
+            {
+                "rule_id": "gdpr-003",
+                "rule_type": RuleType.KEYWORD,
+                "compliance_type": "GDPR",
+                "description": "Missing information about data processing purposes",
+                "severity": "medium",
+                "keywords": ["data processing purposes", "why we process", "purposes of processing"],
+                "suggestion_template": "We collect and process your personal data for the following specific purposes: (1) to provide our services to you, (2) to improve our website functionality, (3) to communicate with you about our products and services, and (4) to comply with legal obligations."
+            }
+        ])
     
-    return [ComplianceRule.from_dict(rule_data) for rule_data in rules_data]
+    if "HIPAA" in compliance_types:
+        rules.extend([
+            {
+                "rule_id": "hipaa-001",
+                "rule_type": RuleType.KEYWORD,
+                "compliance_type": "HIPAA",
+                "description": "Missing Notice of Privacy Practices",
+                "severity": "high",
+                "keywords": ["notice of privacy practices", "privacy notice", "privacy practices"],
+                "suggestion_template": "This Notice of Privacy Practices describes how we may use and disclose your protected health information to carry out treatment, payment, or healthcare operations and for other purposes permitted or required by law."
+            },
+            {
+                "rule_id": "hipaa-002",
+                "rule_type": RuleType.KEYWORD,
+                "compliance_type": "HIPAA",
+                "description": "Missing information about the right to amend health information",
+                "severity": "medium",
+                "keywords": ["right to amend", "amend your information", "correct your information"],
+                "suggestion_template": "You have the right to request that we amend your health information if you believe it is incorrect or incomplete. To request an amendment, please submit your request in writing to our Privacy Officer at privacy@example.com."
+            },
+            {
+                "rule_id": "hipaa-003",
+                "rule_type": RuleType.KEYWORD,
+                "compliance_type": "HIPAA",
+                "description": "Missing information about disclosure accounting",
+                "severity": "medium",
+                "keywords": ["disclosure accounting", "disclosures of your information", "log of disclosures"],
+                "suggestion_template": "You have the right to receive an accounting of certain disclosures we have made of your protected health information for purposes other than treatment, payment, healthcare operations, or certain other activities."
+            }
+        ])
+    
+    # Convert dictionaries to objects
+    rule_objects = []
+    for rule_dict in rules:
+        rule = type('Rule', (), rule_dict)
+        rule_objects.append(rule)
+    
+    return rule_objects
 
-def check_regex_rule(rule: ComplianceRule, paragraph: Dict) -> bool:
-    """
-    Check if a paragraph matches a regex rule
-    
-    Args:
-        rule: ComplianceRule object
-        paragraph: Paragraph data
-        
-    Returns:
-        True if rule matches, False otherwise
-    """
-    try:
-        pattern = re.compile(rule.pattern, re.IGNORECASE)
-        return bool(pattern.search(paragraph["text"]))
-    except Exception as e:
-        current_app.logger.error(f"Error checking regex rule: {str(e)}")
-        return False
+def check_regex_rule(rule, paragraph):
+    """Check if paragraph matches a regex rule"""
+    import re
+    pattern = re.compile(rule.pattern, re.IGNORECASE)
+    return not bool(pattern.search(paragraph["text"]))
 
-def check_keyword_rule(rule: ComplianceRule, paragraph: Dict) -> bool:
-    """
-    Check if a paragraph matches a keyword rule
+def check_keyword_rule(rule, paragraph):
+    """Check if paragraph does NOT contain any of the required keywords"""
+    text = paragraph["text"].lower()
     
-    Args:
-        rule: ComplianceRule object
-        paragraph: Paragraph data
-        
-    Returns:
-        True if rule matches, False otherwise
-    """
-    keywords = rule.pattern.split(',')
-    paragraph_text = paragraph["text"].lower()
-    
-    for keyword in keywords:
-        if keyword.strip().lower() in paragraph_text:
-            return True
-    
-    return False
+    # Rule matches if NONE of the keywords are present
+    # (meaning there's a compliance issue)
+    return not any(keyword.lower() in text for keyword in rule.keywords)
 
 def check_document_compliance(document: Dict, compliance_types: List[str]) -> Dict[str, Any]:
     """
@@ -105,7 +167,7 @@ def check_document_compliance(document: Dict, compliance_types: List[str]) -> Di
                     description=rule.description,
                     severity=rule.severity,
                     compliance_type=rule.compliance_type,
-                    suggestions=[rule.suggestion_template] if rule.suggestion_template else []
+                    suggestions=[] # Initialize with empty list to ensure the button appears
                 )
                 issues.append(issue.to_dict())
                 paragraphs_with_issues.add(paragraph["id"])
@@ -126,7 +188,6 @@ def check_document_compliance(document: Dict, compliance_types: List[str]) -> Di
         compliance_status = "partially_compliant"
     
     # Update document with compliance results
-    from app.extensions import mongo
     mongo.db.documents.update_one(
         {"_id": document["_id"]},
         {"$set": {

@@ -1,4 +1,3 @@
-<!-- app/templates/compliance/results_partial.html -->
 <div id="compliance-results">
     <p>
         <strong>Compliance Score:</strong> 
@@ -39,12 +38,13 @@
                                 hx-get="{{ url_for('compliance.get_suggestion', document_id=document._id, issue_id=issue.issue_id) }}"
                                 hx-target="#suggestion-{{ issue.issue_id }}"
                                 hx-indicator="#loading-{{ issue.issue_id }}">
-                            Generate Suggestion
+                            Generate Suggestion (OpenAI)
                         </button>
                         <div id="loading-{{ issue.issue_id }}" class="htmx-indicator">
                             <div class="spinner-border spinner-border-sm text-primary" role="status">
-                                <span class="visually-hidden">Loading...</span>
+                                <span class="visually-hidden">Calling OpenAI API...</span>
                             </div>
+                            <span class="ms-2">Contacting OpenAI...</span>
                         </div>
                         <div id="suggestion-{{ issue.issue_id }}"></div>
                     {% endif %}

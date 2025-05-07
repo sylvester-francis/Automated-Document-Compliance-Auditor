@@ -1,0 +1,308 @@
+2025-05-06 22:34:33 - werkzeug - WARNING -  * Debugger is active!
+2025-05-06 22:34:33 - werkzeug - INFO -  * Debugger PIN: 172-796-075
+2025-05-06 22:34:49 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-06 22:34:49 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-06 22:34:49 - werkzeug - INFO -  * Restarting with stat
+2025-05-06 22:34:50 - werkzeug - WARNING -  * Debugger is active!
+2025-05-06 22:34:50 - werkzeug - INFO -  * Debugger PIN: 172-796-075
+2025-05-06 22:35:01 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:35:01] "GET /documents/upload HTTP/1.1" 200 -
+2025-05-06 22:35:07 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:35:07] "GET /documents/ HTTP/1.1" 200 -
+2025-05-06 22:35:07 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:35:07] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 22:35:07 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:35:07] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 22:35:11 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:35:11] "GET /compliance/check/5530b9a1-e44c-4a07-ba3f-4287a5496125 HTTP/1.1" 200 -
+2025-05-06 22:35:11 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:35:11] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 22:35:11 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:35:11] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 22:35:22 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:35:22] "GET /documents/5530b9a1-e44c-4a07-ba3f-4287a5496125 HTTP/1.1" 200 -
+2025-05-06 22:35:22 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:35:22] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 22:35:22 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:35:22] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 22:35:27 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:35:27] "GET /compliance/check/5530b9a1-e44c-4a07-ba3f-4287a5496125 HTTP/1.1" 200 -
+2025-05-06 22:35:27 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:35:27] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 22:35:27 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:35:27] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 22:35:29 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:35:29] "GET /documents/5530b9a1-e44c-4a07-ba3f-4287a5496125 HTTP/1.1" 200 -
+2025-05-06 22:35:29 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:35:29] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 22:35:29 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:35:29] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 22:35:31 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:35:31] "GET /compliance/check/5530b9a1-e44c-4a07-ba3f-4287a5496125 HTTP/1.1" 200 -
+2025-05-06 22:35:31 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:35:31] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 22:35:31 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:35:31] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 22:44:00 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-06 22:44:00 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-06 22:44:00 - werkzeug - INFO -  * Restarting with stat
+2025-05-06 22:44:01 - werkzeug - WARNING -  * Debugger is active!
+2025-05-06 22:44:01 - werkzeug - INFO -  * Debugger PIN: 172-796-075
+2025-05-06 22:44:30 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:44:30] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-05-06 22:44:30 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:44:30] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-05-06 22:44:30 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:44:30] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-05-06 22:44:30 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:44:30] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=CHCffFRiDK3UHGjah37q HTTP/1.1" 200 -
+2025-05-06 22:44:30 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:44:30] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-05-06 22:44:39 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:44:39] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-05-06 22:44:39 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:44:39] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-05-06 22:44:39 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:44:39] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-05-06 22:44:39 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:44:39] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png&s=CHCffFRiDK3UHGjah37q HTTP/1.1[0m" 304 -
+2025-05-06 22:45:47 - werkzeug - INFO -  * Detected change in '/Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/app/routes/main.py', reloading
+2025-05-06 22:45:47 - werkzeug - INFO -  * Restarting with stat
+2025-05-06 22:45:48 - werkzeug - WARNING -  * Debugger is active!
+2025-05-06 22:45:48 - werkzeug - INFO -  * Debugger PIN: 172-796-075
+2025-05-06 22:45:54 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:45:54] "GET / HTTP/1.1" 200 -
+2025-05-06 22:45:54 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:45:54] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-05-06 22:45:54 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:45:54] "GET /static/js/main.js HTTP/1.1" 200 -
+2025-05-06 22:46:03 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:46:03] "GET /debug HTTP/1.1" 200 -
+2025-05-06 22:46:03 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:46:03] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 22:46:03 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:46:03] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 22:46:08 - app.services.llm_service - WARNING - No OpenAI API key configured
+2025-05-06 22:46:08 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:46:08] "GET /test-openai HTTP/1.1" 200 -
+2025-05-06 22:46:24 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:46:24] "GET /documents/upload HTTP/1.1" 200 -
+2025-05-06 22:46:24 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:46:24] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 22:46:24 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:46:24] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 22:47:45 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-06 22:47:45 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-06 22:47:45 - werkzeug - INFO -  * Restarting with stat
+2025-05-06 22:47:45 - werkzeug - WARNING -  * Debugger is active!
+2025-05-06 22:47:45 - werkzeug - INFO -  * Debugger PIN: 172-796-075
+2025-05-06 22:47:54 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:47:54] "GET /debug HTTP/1.1" 200 -
+2025-05-06 22:47:54 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:47:54] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 22:47:54 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:47:54] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 22:47:59 - app.services.llm_service - WARNING - No OpenAI API key configured
+2025-05-06 22:47:59 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:47:59] "GET /test-openai HTTP/1.1" 200 -
+2025-05-06 22:49:31 - werkzeug - INFO -  * Detected change in '/Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/app/config.py', reloading
+2025-05-06 22:49:31 - werkzeug - INFO -  * Restarting with stat
+2025-05-06 22:49:31 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 22:49:31 - app.config - WARNING - No .env file found at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 22:49:31 - app.config - WARNING - Config loaded with empty OpenAI API key
+2025-05-06 22:49:31 - werkzeug - WARNING -  * Debugger is active!
+2025-05-06 22:49:31 - werkzeug - INFO -  * Debugger PIN: 172-796-075
+2025-05-06 22:50:45 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 22:50:45 - app.config - WARNING - No .env file found at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 22:50:45 - app.config - WARNING - Config loaded with empty OpenAI API key
+2025-05-06 22:50:45 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-06 22:50:45 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-06 22:50:45 - werkzeug - INFO -  * Restarting with stat
+2025-05-06 22:50:46 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 22:50:46 - app.config - WARNING - No .env file found at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 22:50:46 - app.config - WARNING - Config loaded with empty OpenAI API key
+2025-05-06 22:50:46 - werkzeug - WARNING -  * Debugger is active!
+2025-05-06 22:50:46 - werkzeug - INFO -  * Debugger PIN: 172-796-075
+2025-05-06 22:51:41 - werkzeug - INFO -  * Detected change in '/Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/app.py', reloading
+2025-05-06 22:51:42 - werkzeug - INFO -  * Restarting with stat
+2025-05-06 22:51:42 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 22:51:42 - app.config - WARNING - No .env file found at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 22:51:42 - app.config - INFO - Config loaded OpenAI API key with length: 164
+2025-05-06 22:51:42 - werkzeug - WARNING -  * Debugger is active!
+2025-05-06 22:51:42 - werkzeug - INFO -  * Debugger PIN: 172-796-075
+2025-05-06 22:52:33 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 22:52:33 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 22:52:33 - app.config - INFO - OpenAI API key loaded successfully with length: 164
+2025-05-06 22:52:33 - app.config - INFO - Config loaded OpenAI API key with length: 164
+2025-05-06 22:52:33 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-06 22:52:33 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-06 22:52:33 - werkzeug - INFO -  * Restarting with stat
+2025-05-06 22:52:33 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 22:52:33 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 22:52:33 - app.config - INFO - OpenAI API key loaded successfully with length: 164
+2025-05-06 22:52:33 - app.config - INFO - Config loaded OpenAI API key with length: 164
+2025-05-06 22:52:34 - werkzeug - WARNING -  * Debugger is active!
+2025-05-06 22:52:34 - werkzeug - INFO -  * Debugger PIN: 172-796-075
+2025-05-06 22:53:00 - werkzeug - INFO -  * Detected change in '/Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/app.py', reloading
+2025-05-06 22:53:00 - werkzeug - INFO -  * Restarting with stat
+2025-05-06 22:53:00 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 22:53:00 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 22:53:00 - app.config - INFO - OpenAI API key loaded successfully with length: 164
+2025-05-06 22:53:00 - app.config - INFO - Config loaded OpenAI API key with length: 164
+2025-05-06 22:53:00 - werkzeug - WARNING -  * Debugger is active!
+2025-05-06 22:53:00 - werkzeug - INFO -  * Debugger PIN: 172-796-075
+2025-05-06 22:53:11 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:53:11] "GET /debug HTTP/1.1" 200 -
+2025-05-06 22:53:11 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:53:11] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 22:53:11 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:53:11] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 22:53:14 - app.services.llm_service - INFO - Calling OpenAI API for suggestion on issue: test-issue
+2025-05-06 22:53:14 - app.services.llm_service - INFO - Sending request to OpenAI API
+2025-05-06 22:53:15 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-05-06 22:53:15 - openai._base_client - INFO - Retrying request to /chat/completions in 0.382953 seconds
+2025-05-06 22:53:16 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-05-06 22:53:16 - openai._base_client - INFO - Retrying request to /chat/completions in 0.866158 seconds
+2025-05-06 22:53:17 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-05-06 22:53:17 - app.services.llm_service - ERROR - Error generating suggestion with OpenAI: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+Traceback (most recent call last):
+  File "/Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/app/services/llm_service.py", line 56, in generate_suggestion
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+    ...<5 lines>...
+        temperature=0.5
+    )
+  File "/Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/venv/lib/python3.13/site-packages/openai/_utils/_utils.py", line 287, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/venv/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 925, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<43 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/venv/lib/python3.13/site-packages/openai/_base_client.py", line 1239, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/venv/lib/python3.13/site-packages/openai/_base_client.py", line 1034, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-05-06 22:53:17 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 22:53:17] "GET /test-openai HTTP/1.1" 200 -
+2025-05-06 23:12:46 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:12:46 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:12:46 - app.config - INFO - Anthropic API key loaded successfully with length: 108
+2025-05-06 23:12:46 - app.config - INFO - Config loaded Anthropic API key with length: 108
+2025-05-06 23:14:12 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:14:12 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:14:12 - app.config - INFO - Anthropic API key loaded successfully with length: 108
+2025-05-06 23:14:12 - app.config - INFO - Config loaded Anthropic API key with length: 108
+2025-05-06 23:14:13 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-06 23:14:13 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-06 23:14:13 - werkzeug - INFO -  * Restarting with stat
+2025-05-06 23:14:13 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:14:13 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:14:13 - app.config - INFO - Anthropic API key loaded successfully with length: 108
+2025-05-06 23:14:13 - app.config - INFO - Config loaded Anthropic API key with length: 108
+2025-05-06 23:14:13 - werkzeug - WARNING -  * Debugger is active!
+2025-05-06 23:14:13 - werkzeug - INFO -  * Debugger PIN: 172-796-075
+2025-05-06 23:14:22 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:14:22] "GET /debug HTTP/1.1" 200 -
+2025-05-06 23:14:22 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:14:22] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 23:14:22 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:14:22] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 23:14:34 - app.services.llm_service - INFO - Calling Anthropic API for suggestion on issue: test-issue
+2025-05-06 23:14:34 - app.services.llm_service - INFO - Sending request to Anthropic API
+2025-05-06 23:14:35 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-05-06 23:14:35 - app.services.llm_service - INFO - Received response from Anthropic API: To address the GDPR compliance issue regarding the...
+2025-05-06 23:14:35 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:14:35] "GET /test-claude HTTP/1.1" 200 -
+2025-05-06 23:14:51 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:14:51] "GET / HTTP/1.1" 200 -
+2025-05-06 23:14:51 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:14:51] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 23:14:51 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:14:51] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 23:14:55 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:14:55] "GET /documents/upload HTTP/1.1" 200 -
+2025-05-06 23:14:55 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:14:55] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 23:14:55 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:14:55] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 23:15:06 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:15:06] "[32mPOST /documents/upload HTTP/1.1[0m" 302 -
+2025-05-06 23:15:06 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:15:06] "GET /documents/efcbc877-64f9-4655-9d8b-3c61691fed72 HTTP/1.1" 200 -
+2025-05-06 23:15:06 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:15:06] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 23:15:06 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:15:06] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 23:15:11 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:15:11] "GET /compliance/check/efcbc877-64f9-4655-9d8b-3c61691fed72 HTTP/1.1" 200 -
+2025-05-06 23:15:11 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:15:11] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 23:15:11 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:15:11] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 23:15:43 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:15:43] "GET /debug HTTP/1.1" 200 -
+2025-05-06 23:15:43 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:15:43] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 23:15:43 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:15:43] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 23:15:54 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:15:54] "GET /documents/ HTTP/1.1" 200 -
+2025-05-06 23:15:54 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:15:54] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 23:15:54 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:15:54] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 23:15:59 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:15:59] "GET /compliance/check/efcbc877-64f9-4655-9d8b-3c61691fed72 HTTP/1.1" 200 -
+2025-05-06 23:15:59 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:15:59] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 23:15:59 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:15:59] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 23:18:14 - werkzeug - INFO -  * Detected change in '/Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/app/routes/compliance.py', reloading
+2025-05-06 23:18:15 - werkzeug - INFO -  * Restarting with stat
+2025-05-06 23:18:15 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:18:15 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:18:15 - app.config - INFO - Anthropic API key loaded successfully with length: 108
+2025-05-06 23:18:15 - app.config - INFO - Config loaded Anthropic API key with length: 108
+2025-05-06 23:18:15 - werkzeug - WARNING -  * Debugger is active!
+2025-05-06 23:18:15 - werkzeug - INFO -  * Debugger PIN: 172-796-075
+2025-05-06 23:18:35 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:18:35] "GET /compliance/check/efcbc877-64f9-4655-9d8b-3c61691fed72 HTTP/1.1" 200 -
+2025-05-06 23:18:35 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:18:35] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 23:18:35 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:18:35] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 23:18:36 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:18:36] "GET /compliance/check/efcbc877-64f9-4655-9d8b-3c61691fed72 HTTP/1.1" 200 -
+2025-05-06 23:18:36 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:18:36] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 23:18:36 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:18:36] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 23:18:38 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:18:38] "GET /documents/efcbc877-64f9-4655-9d8b-3c61691fed72 HTTP/1.1" 200 -
+2025-05-06 23:18:38 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:18:38] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 23:18:38 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:18:38] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 23:18:43 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:18:43] "GET /compliance/check/efcbc877-64f9-4655-9d8b-3c61691fed72 HTTP/1.1" 200 -
+2025-05-06 23:18:43 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:18:43] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 23:18:43 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:18:43] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 23:20:36 - werkzeug - INFO -  * Detected change in '/Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/app/routes/compliance.py', reloading
+2025-05-06 23:20:37 - werkzeug - INFO -  * Restarting with stat
+2025-05-06 23:20:37 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:20:37 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:20:37 - app.config - INFO - Anthropic API key loaded successfully with length: 108
+2025-05-06 23:20:37 - app.config - INFO - Config loaded Anthropic API key with length: 108
+2025-05-06 23:27:43 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:27:43 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:27:43 - app.config - INFO - Anthropic API key loaded successfully with length: 108
+2025-05-06 23:27:43 - app.config - INFO - Config loaded Anthropic API key with length: 108
+2025-05-06 23:27:43 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-06 23:27:43 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-06 23:27:43 - werkzeug - INFO -  * Restarting with stat
+2025-05-06 23:27:43 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:27:43 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:27:43 - app.config - INFO - Anthropic API key loaded successfully with length: 108
+2025-05-06 23:27:43 - app.config - INFO - Config loaded Anthropic API key with length: 108
+2025-05-06 23:27:44 - werkzeug - WARNING -  * Debugger is active!
+2025-05-06 23:27:44 - werkzeug - INFO -  * Debugger PIN: 172-796-075
+2025-05-06 23:27:58 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:27:58] "GET /compliance/check/efcbc877-64f9-4655-9d8b-3c61691fed72 HTTP/1.1" 200 -
+2025-05-06 23:27:58 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:27:58] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 23:27:58 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:27:58] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 23:28:14 - app.services.llm_service - INFO - Calling Anthropic API for suggestion on issue: 7b9fbff9-a518-4ebc-9f41-2bb9adb90a1c
+2025-05-06 23:28:14 - app.services.llm_service - INFO - Sending request to Anthropic API
+2025-05-06 23:28:16 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-05-06 23:28:16 - app.services.llm_service - INFO - Received response from Anthropic API: To address the missing information about the right...
+2025-05-06 23:28:16 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:28:16] "GET /compliance/suggest/efcbc877-64f9-4655-9d8b-3c61691fed72/7b9fbff9-a518-4ebc-9f41-2bb9adb90a1c HTTP/1.1" 200 -
+2025-05-06 23:30:18 - werkzeug - INFO -  * Detected change in '/Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/app/routes/compliance.py', reloading
+2025-05-06 23:30:19 - werkzeug - INFO -  * Restarting with stat
+2025-05-06 23:30:19 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:30:19 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:30:19 - app.config - INFO - Anthropic API key loaded successfully with length: 108
+2025-05-06 23:30:19 - app.config - INFO - Config loaded Anthropic API key with length: 108
+2025-05-06 23:31:40 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:31:40 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:31:40 - app.config - INFO - Anthropic API key loaded successfully with length: 108
+2025-05-06 23:31:40 - app.config - INFO - Config loaded Anthropic API key with length: 108
+2025-05-06 23:31:40 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-06 23:31:40 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-06 23:31:40 - werkzeug - INFO -  * Restarting with stat
+2025-05-06 23:31:40 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:31:40 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:31:40 - app.config - INFO - Anthropic API key loaded successfully with length: 108
+2025-05-06 23:31:40 - app.config - INFO - Config loaded Anthropic API key with length: 108
+2025-05-06 23:31:40 - werkzeug - WARNING -  * Debugger is active!
+2025-05-06 23:31:40 - werkzeug - INFO -  * Debugger PIN: 172-796-075
+2025-05-06 23:31:48 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:31:48] "GET /compliance/check/efcbc877-64f9-4655-9d8b-3c61691fed72 HTTP/1.1" 200 -
+2025-05-06 23:31:48 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:31:48] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 23:31:48 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:31:48] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 23:31:57 - app.services.llm_service - INFO - Calling Anthropic API for suggestion on issue: 6036ac6c-e88b-4e2a-94aa-9a8be19e021e
+2025-05-06 23:31:57 - app.services.llm_service - INFO - Sending request to Anthropic API
+2025-05-06 23:31:59 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-05-06 23:31:59 - app.services.llm_service - INFO - Received response from Anthropic API: To address the missing information about the right...
+2025-05-06 23:31:59 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:31:59] "GET /compliance/suggest/efcbc877-64f9-4655-9d8b-3c61691fed72/6036ac6c-e88b-4e2a-94aa-9a8be19e021e HTTP/1.1" 200 -
+2025-05-06 23:34:24 - werkzeug - INFO -  * Detected change in '/Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/app/routes/compliance.py', reloading
+2025-05-06 23:34:25 - werkzeug - INFO -  * Restarting with stat
+2025-05-06 23:34:25 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:34:25 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:34:25 - app.config - INFO - Anthropic API key loaded successfully with length: 108
+2025-05-06 23:34:25 - app.config - INFO - Config loaded Anthropic API key with length: 108
+2025-05-06 23:35:43 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:35:43 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:35:43 - app.config - INFO - Anthropic API key loaded successfully with length: 108
+2025-05-06 23:35:43 - app.config - INFO - Config loaded Anthropic API key with length: 108
+2025-05-06 23:35:43 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-06 23:35:43 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-06 23:35:43 - werkzeug - INFO -  * Restarting with stat
+2025-05-06 23:35:43 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:35:43 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-06 23:35:43 - app.config - INFO - Anthropic API key loaded successfully with length: 108
+2025-05-06 23:35:43 - app.config - INFO - Config loaded Anthropic API key with length: 108
+2025-05-06 23:35:43 - werkzeug - WARNING -  * Debugger is active!
+2025-05-06 23:35:43 - werkzeug - INFO -  * Debugger PIN: 172-796-075
+2025-05-06 23:35:49 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:35:49] "GET /compliance/check/efcbc877-64f9-4655-9d8b-3c61691fed72 HTTP/1.1" 200 -
+2025-05-06 23:35:49 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:35:49] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 23:35:49 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:35:49] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 23:35:52 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:35:52] "GET /compliance/check/efcbc877-64f9-4655-9d8b-3c61691fed72 HTTP/1.1" 200 -
+2025-05-06 23:35:52 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:35:52] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 23:35:52 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:35:52] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-06 23:35:56 - app.services.llm_service - INFO - Calling Anthropic API for suggestion on issue: 159bd70a-4039-4ca4-8ead-94c482e5a195
+2025-05-06 23:35:56 - app.services.llm_service - INFO - Sending request to Anthropic API
+2025-05-06 23:35:59 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-05-06 23:35:59 - app.services.llm_service - INFO - Received response from Anthropic API: To address the missing information about the right...
+2025-05-06 23:35:59 - werkzeug - INFO - 127.0.0.1 - - [06/May/2025 23:35:59] "GET /compliance/suggest/efcbc877-64f9-4655-9d8b-3c61691fed72/159bd70a-4039-4ca4-8ead-94c482e5a195 HTTP/1.1" 200 -

@@ -1,5 +1,5 @@
-<!-- app/templates/compliance/suggestion_partial.html -->
 <div class="suggestion-card mt-2">
-    <p><strong>AI Suggestion:</strong></p>
+    <p><strong>AI Suggestion from Claude:</strong></p>
     <p>{{ suggestion }}</p>
+    <small class="text-muted">Generated {% if timestamp %}{{ timestamp }}{% else %}just now{% endif %}</small>
 </div>
