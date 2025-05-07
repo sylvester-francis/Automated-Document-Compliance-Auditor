@@ -1,10 +1,14 @@
 # Automated Document Compliance Auditor
 
-A GenAI tool that scans contracts and regulatory filings for missing clauses and suggests remediation.
+![Compliance Auditor Banner](https://img.shields.io/badge/Compliance-Auditor-blue) ![Python](https://img.shields.io/badge/Python-3.9+-green) ![Flask](https://img.shields.io/badge/Flask-3.1.0-lightgrey) ![MongoDB](https://img.shields.io/badge/MongoDB-4.12.1-green) ![Anthropic Claude](https://img.shields.io/badge/Claude-API-purple)
+
+A GenAI-powered tool that scans contracts and regulatory filings for missing clauses and suggests remediation using Anthropic's Claude API.
 
 ## Overview
 
 The Automated Document Compliance Auditor is a Flask-based web application that helps organizations ensure their documents comply with various regulations such as GDPR and HIPAA. It analyzes documents to identify missing clauses and provides AI-powered suggestions for remediation using Anthropic's Claude API.
+
+![Application Screenshot](https://via.placeholder.com/800x400?text=Document+Compliance+Auditor)
 
 ## Key Features
 
@@ -19,6 +23,55 @@ The Automated Document Compliance Auditor is a Flask-based web application that 
 - **API Access**: RESTful API for programmatic access to all features
 - **PDF Export**: Generate PDF reports for compliance results
 
+## Application Screenshots
+
+### Document List View
+![Document List](https://via.placeholder.com/800x400?text=Document+List+View)
+*Browse uploaded documents with filtering and sorting options*
+
+### Document View
+![Document View](https://via.placeholder.com/800x400?text=Document+View)
+*View document content with compliance issues highlighted*
+
+### Compliance Check Results
+![Compliance Results](https://via.placeholder.com/800x400?text=Compliance+Results)
+*View detailed compliance issues and get AI-powered suggestions*
+
+### Dark Mode Support
+![Dark Mode](https://via.placeholder.com/800x400?text=Dark+Mode)
+*Toggle between light and dark mode for comfortable viewing*
+
+## System Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        Client Browser                           │
+└───────────────────────────────┬─────────────────────────────────┘
+                                │
+                                ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                         Flask Web Server                        │
+│                                                                 │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │
+│  │   Routes    │───▶│  Services   │───▶│  Document Parser    │  │
+│  └─────────────┘    └─────────────┘    └─────────────────────┘  │
+│         │                  │                      │              │
+│         ▼                  ▼                      ▼              │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │
+│  │ Templates   │    │ Rule Engine │    │ PDF Export Service  │  │
+│  └─────────────┘    └─────────────┘    └─────────────────────┘  │
+│                           │                                      │
+└───────────────────────────┼──────────────────────────────────────┘
+                            │
+           ┌────────────────┼────────────────┐
+           │                │                │
+           ▼                ▼                ▼
+┌─────────────────┐ ┌─────────────────┐ ┌───────────────────┐
+│    MongoDB      │ │  Anthropic API  │ │  Cache System     │
+│  (Document DB)  │ │  (Claude LLM)   │ │  (Flask-Caching)  │
+└─────────────────┘ └─────────────────┘ └───────────────────┘
+```
+
 ## Technology Stack
 
 - **Backend**: Python with Flask
@@ -30,7 +83,7 @@ The Automated Document Compliance Auditor is a Flask-based web application that 
 - **Caching**: In-memory caching with Flask-Caching
 - **Security**: Flask-WTF for CSRF protection, input sanitization with Bleach
 - **API**: RESTful API with rate limiting via Flask-Limiter
-- **PDF Generation**: WeasyPrint for PDF report generation
+- **PDF Generation**: ReportLab for PDF report generation
 - **Background Processing**: APScheduler for handling long-running tasks
 
 ## Getting Started
@@ -40,53 +93,160 @@ The Automated Document Compliance Auditor is a Flask-based web application that 
 - Python 3.9+
 - MongoDB
 - Anthropic API key (for AI suggestions)
-- ruff and flake8 (for code quality checks)
 
 ### Installation
 
-1. Clone the repository
+1. **Clone the repository**
 
 ```bash
 git clone https://github.com/sylvester-francis/Automated-Document-Compliance-Auditor.git
 cd Automated-Document-Compliance-Auditor
 ```
-2. Create and activate a virtual environment
+
+2. **Create and activate a virtual environment**
+
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# On macOS/Linux
+source venv/bin/activate
+
+# On Windows
+# venv\Scripts\activate
 ```
-3. Install the dependencies
+
+3. **Install the dependencies**
+
 ```bash
 pip install -r requirements.txt
 ```
-4. Create a .env file in the instance directory with your configuration
+
+4. **Set up MongoDB**
+
+Make sure MongoDB is running on your system. You can install it following the [official MongoDB installation guide](https://docs.mongodb.com/manual/installation/).
+
+5. **Create the instance directory and .env file**
+
+```bash
+mkdir -p instance
+touch instance/.env
+```
+
+Edit the `.env` file and add the following configuration:
+
 ```bash
 SECRET_KEY=your-secret-key
 MONGO_URI=mongodb://localhost:27017/compliance_auditor
 ANTHROPIC_API_KEY=your-anthropic-api-key
 USE_MOCK_LLM=False  # Set to True to use mock LLM service instead of Claude API
 API_KEY=your-api-key  # For accessing the API endpoints
-CORS_ORIGINS=*  # Comma-separated list of allowed origins for CORS
 MAX_CONTENT_LENGTH=10485760  # Maximum file size (10MB)
 ALLOWED_EXTENSIONS=pdf,docx,txt  # Allowed file extensions
 ```
-5. Run the app
+
+> **Note:** You'll need to obtain an Anthropic API key from [Anthropic's website](https://www.anthropic.com/). If you don't have one, you can set `USE_MOCK_LLM=True` to use the mock LLM service for testing.
+
+6. **Run the application**
+
 ```bash
 python app.py
 ```
-6. Open your browser and navigate to http://localhost:5000
+
+7. **Access the application**
+
+Open your browser and navigate to http://localhost:5006
+
+## Docker Deployment
+
+The application can also be deployed using Docker for easier setup and consistent environments.
+
+### Using Docker Compose (Recommended)
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/sylvester-francis/Automated-Document-Compliance-Auditor.git
+cd Automated-Document-Compliance-Auditor
+```
+
+2. **Set your Anthropic API key as an environment variable**
+
+```bash
+export ANTHROPIC_API_KEY=your_anthropic_api_key
+
+# Alternatively, to use the mock LLM service (no API key required)
+export USE_MOCK_LLM=True
+```
+
+3. **Start the application with Docker Compose**
+
+```bash
+docker-compose up -d
+```
+
+4. **Access the application**
+
+Open your browser and navigate to http://localhost:5006
+
+### Using Docker without Compose
+
+1. **Build the Docker image**
+
+```bash
+docker build -t document-compliance-auditor .
+```
+
+2. **Run the container**
+
+```bash
+docker run -p 5006:5006 \
+  -e MONGO_URI=your_mongo_uri \
+  -e ANTHROPIC_API_KEY=your_api_key \
+  -e SECRET_KEY=your_secret_key \
+  document-compliance-auditor
+```
+
+> **Note:** When using Docker without Compose, you'll need to set up MongoDB separately and provide the correct connection URI.
 
 ## Usage
 
-1. Upload a document (PDF, DOCX, or TXT)
-2. The system will process the document and extract text and metadata
-3. Check compliance against selected standards (GDPR, HIPAA, etc.)
-4. View compliance issues and get AI-powered suggestions for remediation
-5. Generate suggestions using the "Generate Suggestion (Claude)" button
-6. Export compliance reports as PDF for documentation
-7. Toggle between light and dark mode for comfortable viewing
-8. Use the search and filtering options to find specific documents
-9. Access all functionality programmatically through the API
+### Document Management
+
+1. **Upload Documents**
+   - Click the "Upload New Document" button on the documents list page
+   - Select a file (PDF, DOCX, or TXT) from your computer
+   - The system will process the document and extract text and metadata
+
+2. **Browse Documents**
+   - Use the search bar to find documents by filename or content
+   - Filter documents by type (PDF, DOCX, TXT) using the dropdown menu
+   - Sort documents by date, name, or compliance score
+   - Toggle between ascending and descending order
+
+3. **View Document Details**
+   - Click on a document card to view its details
+   - Navigate between document content, compliance issues, and metadata using the tabs
+   - Toggle between light and dark mode using the theme switch in the navigation bar
+
+### Compliance Checking
+
+1. **Run Compliance Check**
+   - Click the "Run Compliance Check" button on the document view page
+   - The system will analyze the document against selected compliance standards
+   - View the compliance score and issues found
+
+2. **Review Compliance Issues**
+   - Issues are highlighted in the document content
+   - Click on an issue to see details and suggestions
+   - Generate AI-powered suggestions using the "Generate Suggestion (Claude)" button
+
+3. **Export Compliance Report**
+   - Click the "Export PDF Report" button to generate a PDF report
+   - The report includes document details, compliance score, issues, and suggestions
+
+### API Access
+
+All functionality is also available through the API. See the [API Documentation](#api-documentation) section for details.
 
 ## Project Structure
 ```bash
@@ -212,6 +372,51 @@ The interface provides:
    - Added configuration options for toggling features
    - Improved error handling and debugging information
 
+## Development
+
+### Code Quality
+
+This project uses ruff and flake8 for code quality checks. To run these checks locally:
+
+1. **Run ruff**:
+
+```bash
+# Navigate to your project directory
+cd /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor
+
+# Activate virtual environment
+source venv/bin/activate
+
+# Run ruff on the entire codebase
+ruff check .
+
+# To automatically fix some issues
+ruff check --fix .
+```
+
+2. **Run flake8**:
+
+```bash
+# Run flake8 on the entire codebase
+flake8 .
+```
+
+### CI/CD Pipeline
+
+This project includes a GitHub Actions workflow for continuous integration and deployment. The workflow is defined in `.github/workflows/ci-cd.yml` and includes the following stages:
+
+1. **Lint**: Runs ruff and flake8 to check code quality
+2. **Test**: Runs pytest with coverage reporting
+3. **Build**: Builds and pushes a Docker image to DockerHub (on main/master branch)
+4. **Deploy**: Deploys the application to production (on main/master branch)
+
+The CI/CD pipeline uses GitHub Container Registry (GHCR) to store Docker images, which is free for public repositories. The pipeline automatically handles authentication using GitHub Actions' built-in secrets.
+
+If you're using the deployment step, you'll need to set up the following GitHub secrets:
+
+- `DEPLOY_USER`: SSH username for deployment (if using SSH deployment)
+- `DEPLOY_HOST`: SSH host for deployment (if using SSH deployment)
+
 ## Future Enhancements
 ### Potential enhancements for this project:
 
@@ -225,7 +430,6 @@ The interface provides:
 8. Collaborative review features with user roles and permissions
 9. Automated scheduled compliance checks for document repositories
 10. Advanced Claude prompt engineering for even more precise suggestions
-11. Improved test coverage and CI/CD integration
 
 ## API Documentation
 

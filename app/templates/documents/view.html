@@ -66,7 +66,7 @@
                     <button class="nav-link active" id="content-tab" data-bs-toggle="tab" data-bs-target="#content" type="button" role="tab" aria-controls="content" aria-selected="true">Document Content</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="issues-tab" data-bs-toggle="tab" data-bs-target="#issues" type="button" role="tab" aria-controls="issues" aria-selected="false">Compliance Issues ({{ document.compliance_issues|default([])|length }})</button>
+                    <button class="nav-link" id="issues-tab" data-bs-toggle="tab" data-bs-target="#issues" type="button" role="tab" aria-controls="issues" aria-selected="false">Compliance Issues ({{ document.compliance_issues|default([])|length if document.compliance_issues is defined else 0 }})</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="metadata-tab" data-bs-toggle="tab" data-bs-target="#metadata" type="button" role="tab" aria-controls="metadata" aria-selected="false">Metadata</button>
@@ -101,7 +101,7 @@
                 <div class="tab-pane fade" id="issues" role="tabpanel" aria-labelledby="issues-tab">
                     <div class="card">
                         <div class="card-body">
-                            {% if document.compliance_issues and document.compliance_issues|length > 0 %}
+                            {% if document.compliance_issues is defined and document.compliance_issues and document.compliance_issues|length > 0 %}
                                 <div class="alert alert-warning">
                                     <h5 class="alert-heading">{{ document.compliance_issues|length }} compliance issues found</h5>
                                     <p>These issues should be addressed to ensure compliance with regulations.</p>

@@ -29,6 +29,9 @@ def list_documents():
         sort_by = request.args.get('sort', 'created_at')
         sort_dir = -1 if request.args.get('order', 'desc') == 'desc' else 1
         
+        # Debug filter parameters
+        current_app.logger.info(f"Filter parameters: search={search_query}, type={document_type}, sort={sort_by}, order={'desc' if sort_dir == -1 else 'asc'}")
+        
         # Safely convert per_page to integer
         try:
             per_page = int(request.args.get('per_page', 10))
@@ -42,8 +45,24 @@ def list_documents():
                 {'filename': {'$regex': search_query, '$options': 'i'}},
                 {'content': {'$regex': search_query, '$options': 'i'}}
             ]
+        
+        # Handle document type filtering
         if document_type:
-            query['document_type'] = document_type
+            # Check if filtering by file format (pdf, docx, txt)
+            if document_type in ['pdf', 'docx', 'txt']:
+                # Try multiple fields where format info might be stored
+                query['$or'] = query.get('$or', []) + [
+                    {'file_format': document_type},
+                    {'file_format': document_type.upper()},
+                    {'document_type': document_type},
+                    {'metadata.format': document_type},
+                    {'metadata.file_format': document_type}
+                ]
+                current_app.logger.info(f"Filtering by file format: {document_type}")
+            else:
+                # Regular document type filtering
+                query['document_type'] = document_type
+                current_app.logger.info(f"Filtering by document type: {document_type}")
         
         # Get paginated documents
         documents, pagination = get_pagination(
@@ -173,6 +192,18 @@ def view_document(document_id):
     # Ensure document has compliance issues field
     if 'compliance_issues' not in document:
         document['compliance_issues'] = []
+    
+    # Debug compliance issues
+    current_app.logger.info(f"Document compliance issues: {len(document.get('compliance_issues', []))}, type: {type(document.get('compliance_issues'))}")
+    if document.get('compliance_issues'):
+        # Convert compliance issues to list if it's not already
+        if not isinstance(document['compliance_issues'], list):
+            try:
+                document['compliance_issues'] = list(document['compliance_issues'])
+                current_app.logger.info(f"Converted compliance issues to list: {len(document['compliance_issues'])}")
+            except Exception as e:
+                current_app.logger.error(f"Error converting compliance issues to list: {str(e)}")
+                document['compliance_issues'] = []
         
     # Ensure document has compliance score
     if 'compliance_score' not in document or document['compliance_score'] is None:

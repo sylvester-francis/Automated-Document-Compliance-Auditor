@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "5006:5006"
+    environment:
+      - SECRET_KEY=your_secret_key_change_this
+      - MONGO_URI=mongodb://mongo:27017/compliance_auditor
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - USE_MOCK_LLM=${USE_MOCK_LLM:-False}
+      - MAX_CONTENT_LENGTH=10485760
+      - ALLOWED_EXTENSIONS=pdf,docx,txt
+    volumes:
+      - ./instance:/app/instance
+      - ./logs:/app/logs
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    restart: unless-stopped
+
+volumes:
+  mongo_data:
