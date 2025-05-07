@@ -50,3 +50,10 @@ class Config:
     
     # Compliance settings
     DEFAULT_COMPLIANCE_TYPES = ['GDPR', 'HIPAA']
+    
+    # LLM settings
+    USE_MOCK_LLM = os.environ.get('USE_MOCK_LLM', 'False').lower() in ('true', '1', 't')
+    if USE_MOCK_LLM:
+        logger.info("Using mock LLM service (USE_MOCK_LLM=True)")
+    else:
+        logger.info("Using real LLM service (USE_MOCK_LLM=False)")

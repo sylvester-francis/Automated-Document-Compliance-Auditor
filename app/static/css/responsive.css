@@ -1,0 +1,143 @@
+/* Mobile responsiveness improvements */
+
+/* Base responsive adjustments */
+@media (max-width: 768px) {
+  /* Adjust container padding for smaller screens */
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  /* Make tables responsive */
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Adjust card layouts */
+  .card {
+    margin-bottom: 1rem;
+  }
+  
+  /* Adjust form elements */
+  .form-control, .form-select, .btn {
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+  
+  /* Adjust headings */
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  /* Adjust spacing */
+  .mt-4, .mb-4 {
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
+  }
+  
+  /* Adjust document viewer */
+  .document-viewer {
+    max-height: 400px;
+  }
+  
+  /* Make filter controls stack on mobile */
+  .filter-section .row > div {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Adjust buttons in mobile view */
+  .btn-group > .btn {
+    padding: 0.375rem 0.5rem;
+  }
+  
+  /* Adjust navbar */
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+  
+  /* Adjust pagination */
+  .pagination .page-link {
+    padding: 0.375rem 0.5rem;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 576px) {
+  /* Further adjustments for very small screens */
+  .card-body {
+    padding: 0.75rem;
+  }
+  
+  /* Stack buttons on very small screens */
+  .d-flex.gap-2 {
+    flex-direction: column;
+  }
+  
+  .d-flex.gap-2 .btn {
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+  
+  /* Adjust document cards */
+  .document-card .card-title {
+    font-size: 1rem;
+  }
+  
+  /* Adjust compliance score badges */
+  .badge {
+    font-size: 0.7rem;
+  }
+  
+  /* Adjust tabs */
+  .nav-tabs .nav-link {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Adjust toast notifications */
+  .toast {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    border-radius: 0;
+  }
+}
+
+/* Tablet devices */
+@media (min-width: 769px) and (max-width: 992px) {
+  /* Adjustments specific to tablets */
+  .document-card .card-body {
+    padding: 1rem;
+  }
+  
+  /* Adjust document viewer for tablets */
+  .document-viewer {
+    max-height: 500px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .document-viewer {
+    max-height: none;
+    overflow: visible;
+  }
+  
+  .card {
+    border: none !important;
+    box-shadow: none !important;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 100%;
+  }
+}

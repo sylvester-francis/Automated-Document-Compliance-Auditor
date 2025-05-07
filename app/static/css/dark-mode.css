@@ -1,0 +1,129 @@
+/* Dark mode styles */
+:root {
+    --dark-bg: #121212;
+    --dark-surface: #1e1e1e;
+    --dark-primary: #bb86fc;
+    --dark-secondary: #03dac6;
+    --dark-error: #cf6679;
+    --dark-text-primary: rgba(255, 255, 255, 0.87);
+    --dark-text-secondary: rgba(255, 255, 255, 0.6);
+    --dark-text-disabled: rgba(255, 255, 255, 0.38);
+    --dark-border: rgba(255, 255, 255, 0.12);
+}
+
+[data-bs-theme="dark"] {
+    color-scheme: dark;
+    
+    /* Background colors */
+    --bs-body-bg: var(--dark-bg);
+    --bs-body-color: var(--dark-text-primary);
+    
+    /* Card styles */
+    --bs-card-bg: var(--dark-surface);
+    --bs-card-border-color: var(--dark-border);
+    
+    /* Table styles */
+    --bs-table-bg: var(--dark-surface);
+    --bs-table-border-color: var(--dark-border);
+    
+    /* Form styles */
+    --bs-form-control-bg: var(--dark-surface);
+    --bs-form-control-disabled-bg: rgba(255, 255, 255, 0.05);
+    
+    /* Button styles */
+    --bs-btn-disabled-opacity: 0.38;
+}
+
+[data-bs-theme="dark"] .navbar-dark {
+    background-color: var(--dark-surface) !important;
+}
+
+[data-bs-theme="dark"] .bg-light {
+    background-color: var(--dark-surface) !important;
+    color: var(--dark-text-secondary);
+}
+
+[data-bs-theme="dark"] .text-muted {
+    color: var(--dark-text-secondary) !important;
+}
+
+[data-bs-theme="dark"] .document-viewer {
+    background-color: var(--dark-surface);
+    border-color: var(--dark-border);
+}
+
+[data-bs-theme="dark"] .document-paragraph {
+    border-color: var(--dark-border);
+}
+
+[data-bs-theme="dark"] .document-paragraph.highlight {
+    background-color: rgba(255, 193, 7, 0.15);
+}
+
+[data-bs-theme="dark"] .compliance-issue {
+    background-color: var(--dark-surface);
+    border-color: var(--dark-border);
+}
+
+[data-bs-theme="dark"] .compliance-issue-high {
+    border-left-color: var(--dark-error);
+}
+
+[data-bs-theme="dark"] .compliance-issue-medium {
+    border-left-color: #ff9800;
+}
+
+[data-bs-theme="dark"] .compliance-issue-low {
+    border-left-color: var(--dark-secondary);
+}
+
+/* Suggestion card styles for dark mode */
+[data-bs-theme="dark"] .suggestion-card {
+    background-color: var(--dark-surface);
+    border: 1px solid var(--dark-border);
+    border-radius: 0.25rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    color: var(--dark-text-primary);
+}
+
+[data-bs-theme="dark"] .suggestion-card p {
+    color: var(--dark-text-primary);
+}
+
+[data-bs-theme="dark"] .suggestion-card .text-muted {
+    color: var(--dark-text-secondary) !important;
+}
+
+/* Dark mode toggle button */
+.theme-toggle {
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.theme-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-bs-theme="dark"] .theme-toggle-light {
+    display: inline-flex;
+}
+
+[data-bs-theme="dark"] .theme-toggle-dark {
+    display: none;
+}
+
+[data-bs-theme="light"] .theme-toggle-light {
+    display: none;
+}
+
+[data-bs-theme="light"] .theme-toggle-dark {
+    display: inline-flex;
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Compliance Report</title>
+</head>
+<body>
+    <h1>Compliance Report: {{ document.filename }}</h1>
+    
+    <div class="metadata-section">
+        <h2>Document Information</h2>
+        <table class="metadata-table">
+            <tr>
+                <th>Filename</th>
+                <td>{{ document.filename }}</td>
+            </tr>
+            <tr>
+                <th>Date Uploaded</th>
+                <td>{{ document.created_at.strftime('%Y-%m-%d %H:%M') if document.created_at else 'Unknown' }}</td>
+            </tr>
+            <tr>
+                <th>Document Type</th>
+                <td>{{ document.document_type if document.document_type else 'Unknown' }}</td>
+            </tr>
+            {% if document.metadata %}
+                {% for key, value in document.metadata.items() %}
+                <tr>
+                    <th>{{ key|title }}</th>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+    </div>
+    
+    <div class="compliance-section">
+        <h2>Compliance Summary</h2>
+        <p>
+            <span class="compliance-score {% if document.compliance_score >= 80 %}score-high{% elif document.compliance_score >= 50 %}score-medium{% else %}score-low{% endif %}">
+                Compliance Score: {{ document.compliance_score|round(1) }}%
+            </span>
+        </p>
+        <p>Status: {{ document.compliance_status|replace('_', ' ')|title }}</p>
+    </div>
+    
+    <div class="issues-section">
+        <h2>Compliance Issues</h2>
+        {% if document.compliance_issues and document.compliance_issues|length > 0 %}
+            {% for issue in document.compliance_issues %}
+                <div class="compliance-issue issue-{{ issue.severity|lower }}">
+                    <h3>{{ issue.title }}</h3>
+                    <p><strong>Severity:</strong> {{ issue.severity }}</p>
+                    <p><strong>Description:</strong> {{ issue.description }}</p>
+                    {% if issue.recommendation %}
+                        <p><strong>Recommendation:</strong> {{ issue.recommendation }}</p>
+                    {% endif %}
+                    {% if issue.references %}
+                        <p><strong>References:</strong> {{ issue.references }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No compliance issues found.</p>
+        {% endif %}
+    </div>
+    
+    <div class="footer">
+        <p>Generated on {{ generated_at }} | Automated Document Compliance Auditor</p>
+        <p>This report is for informational purposes only and does not constitute legal advice.</p>
+    </div>
+</body>
+</html>

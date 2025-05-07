@@ -10,6 +10,7 @@
         </div>
         <div class="card-body">
             <form id="bulk-upload-form" method="POST" action="{{ url_for('compliance.upload_bulk_documents') }}" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <div class="mb-3">
                     <label for="job-name" class="form-label">Job Name</label>
                     <input type="text" class="form-control" id="job-name" name="job_name" placeholder="Enter a name for this batch job">
@@ -75,7 +76,10 @@
             // Submit form with HTMX
             fetch('{{ url_for("compliance.upload_bulk_documents") }}', {
                 method: 'POST',
-                body: formData
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token() }}'
+                }
             })
             .then(response => response.json())
             .then(data => {

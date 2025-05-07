@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document Export</title>
+</head>
+<body>
+    <h1>{{ document.filename }}</h1>
+    
+    <div class="metadata-section">
+        <h2>Document Information</h2>
+        <table class="metadata-table">
+            <tr>
+                <th>Filename</th>
+                <td>{{ document.filename }}</td>
+            </tr>
+            <tr>
+                <th>Date Uploaded</th>
+                <td>{{ document.created_at.strftime('%Y-%m-%d %H:%M') if document.created_at else 'Unknown' }}</td>
+            </tr>
+            <tr>
+                <th>Document Type</th>
+                <td>{{ document.document_type if document.document_type else 'Unknown' }}</td>
+            </tr>
+            {% if document.compliance_score is defined %}
+            <tr>
+                <th>Compliance Score</th>
+                <td>{{ document.compliance_score|round(1) }}%</td>
+            </tr>
+            {% endif %}
+            {% if document.metadata %}
+                {% for key, value in document.metadata.items() %}
+                <tr>
+                    <th>{{ key|title }}</th>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+    </div>
+    
+    <div class="document-content">
+        <h2>Document Content</h2>
+        {% if document.paragraphs and document.paragraphs|length > 0 %}
+            {% for paragraph in document.paragraphs %}
+                <p>{{ paragraph }}</p>
+            {% endfor %}
+        {% elif document.content %}
+            <p>{{ document.content }}</p>
+        {% else %}
+            <p>No content available for this document.</p>
+        {% endif %}
+    </div>
+    
+    <div class="footer">
+        <p>Generated on {{ generated_at }} | Automated Document Compliance Auditor</p>
+        <p>This document export is for informational purposes only.</p>
+    </div>
+</body>
+</html>

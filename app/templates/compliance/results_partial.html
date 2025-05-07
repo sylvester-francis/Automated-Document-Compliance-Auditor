@@ -2,7 +2,7 @@
     <p>
         <strong>Compliance Score:</strong> 
         <span class="badge {% if results.score >= 80 %}bg-success{% elif results.score >= 50 %}bg-warning{% else %}bg-danger{% endif %}">
-            {{ results.score|round(1) }}%
+            {{ results.score|default(0)|round(1) }}%
         </span>
     </p>
     
@@ -38,13 +38,13 @@
                                 hx-get="{{ url_for('compliance.get_suggestion', document_id=document._id, issue_id=issue.issue_id) }}"
                                 hx-target="#suggestion-{{ issue.issue_id }}"
                                 hx-indicator="#loading-{{ issue.issue_id }}">
-                            Generate Suggestion (OpenAI)
+                            Generate Suggestion (Claude)
                         </button>
                         <div id="loading-{{ issue.issue_id }}" class="htmx-indicator">
                             <div class="spinner-border spinner-border-sm text-primary" role="status">
-                                <span class="visually-hidden">Calling OpenAI API...</span>
+                                <span class="visually-hidden">Calling Claude API...</span>
                             </div>
-                            <span class="ms-2">Contacting OpenAI...</span>
+                            <span class="ms-2">Contacting Claude...</span>
                         </div>
                         <div id="suggestion-{{ issue.issue_id }}"></div>
                     {% endif %}

@@ -24,6 +24,7 @@ def check_document(document_id):
     # Debug output
     print(f"Document ID: {document_id}")
     print(f"Found {len(results['issues'])} compliance issues")
+    print(f"Compliance Score: {results['score']}")
     for i, issue in enumerate(results['issues']):
         print(f"Issue {i+1}: {issue.get('issue_id', 'No ID')}")
         print(f"  Paragraph ID: {issue.get('paragraph_id', 'No paragraph ID')}")
@@ -31,8 +32,56 @@ def check_document(document_id):
         print(f"  Has suggestions field: {'Yes' if 'suggestions' in issue else 'No'}")
         print(f"  Suggestions: {issue.get('suggestions', [])}")
 
-    # Re-fetch updated document
+    # Re-fetch updated document with the updated compliance information
     document = mongo.db.documents.find_one({'_id': document_id})
+    
+    # Ensure metadata is properly loaded
+    if 'metadata' not in document or not document['metadata']:
+        document['metadata'] = {}
+        
+    # Make sure compliance score is available in the template context
+    if 'compliance_score' not in document or document['compliance_score'] is None:
+        document['compliance_score'] = results['score']
+        # Update the document with the score if it's missing
+        mongo.db.documents.update_one(
+            {'_id': document_id},
+            {'$set': {'compliance_score': results['score']}}
+        )
+        
+    # Ensure compliance status is properly set
+    if 'compliance_status' not in document or not document['compliance_status']:
+        mongo.db.documents.update_one(
+            {'_id': document_id},
+            {'$set': {'compliance_status': results['status']}}
+        )
+        document['compliance_status'] = results['status']
+        
+    # Process document content for display
+    if 'paragraphs' in document and document['paragraphs']:
+        # If paragraphs exist but are empty or missing IDs, fix them
+        processed_paragraphs = []
+        for i, para in enumerate(document['paragraphs']):
+            if isinstance(para, dict) and para.get('id') and para.get('text'):
+                # Dictionary paragraph with ID and text - keep as is
+                processed_paragraphs.append(para)
+            elif isinstance(para, dict) and not para.get('id') and para.get('text'):
+                # Dictionary paragraph without ID but with text - add ID
+                para['id'] = f'p{i+1}'
+                processed_paragraphs.append(para)
+            elif isinstance(para, str) and para.strip():
+                # String paragraph - convert to dict with ID
+                processed_paragraphs.append({'id': f'p{i+1}', 'text': para})
+            # Skip empty paragraphs
+        
+        if processed_paragraphs:
+            document['paragraphs'] = processed_paragraphs
+        else:
+            # If all paragraphs were invalid/empty, use document text instead
+            document['paragraphs'] = []
+    
+    # If no paragraphs but text exists, create a single paragraph
+    if (not document.get('paragraphs') or len(document['paragraphs']) == 0) and document.get('text'):
+        document['paragraphs'] = [{'id': 'p1', 'text': document['text']}]
 
     if request.headers.get('HX-Request'):
         return render_template('compliance/results_partial.html', results=results, document=document)
@@ -60,7 +109,13 @@ def get_suggestion(document_id, issue_id):
     issue = next((i for i in compliance_issues if i.get('issue_id') == issue_id), None)
     if not issue:
         print(f"Issue not found for ID: {issue_id}")
-        return jsonify({'error': 'Issue not found'}), 404
+        error_message = f"Compliance issue with ID '{issue_id}' not found"
+        
+        # Handle HTMX requests differently to show error in UI
+        if request.headers.get('HX-Request'):
+            return f'<div class="alert alert-danger">{error_message}</div>'
+        
+        return jsonify({'error': error_message}), 404
 
     print(f"Calling generate_suggestion for issue {issue_id}")
     try:

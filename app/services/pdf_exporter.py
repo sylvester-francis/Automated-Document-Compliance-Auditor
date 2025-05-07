@@ -155,9 +155,14 @@ class PdfExporter:
                     # Add paragraph text if available
                     if info['paragraph_id']:
                         for para in document.get('paragraphs', []):
-                            if para.get('id') == info['paragraph_id']:
+                            # Handle both string and dict paragraphs
+                            if isinstance(para, dict) and para.get('id') == info['paragraph_id']:
                                 elements.append(Paragraph("Example Text:", self.styles['Normal']))
                                 elements.append(Paragraph(para.get('text', ''), self.styles['Normal']))
+                                break
+                            elif isinstance(para, str) and info['paragraph_id'] == 'p1':  # Default ID for string paragraphs
+                                elements.append(Paragraph("Example Text:", self.styles['Normal']))
+                                elements.append(Paragraph(para, self.styles['Normal']))
                                 break
                     
                     # Add suggestions if available

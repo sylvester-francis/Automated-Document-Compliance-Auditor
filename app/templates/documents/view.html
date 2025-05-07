@@ -33,9 +33,12 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
-                    <p><strong>Document Type:</strong> {{ document.document_type|default('Unknown') }}</p>
+                    <p><strong>Document Type:</strong> {{ document.document_type|default('Unknown')|replace('_', ' ')|title }}</p>
                     <p><strong>File Size:</strong> {{ (document.file_size / 1024)|round(1) if document.file_size else 'Unknown' }} KB</p>
-                    <p><strong>File Format:</strong> {{ document.file_format|default('Unknown') }}</p>
+                    <p><strong>File Format:</strong> {{ document.file_format|default('Unknown')|upper }}</p>
+                    {% if document.metadata and document.metadata.get('word_count') %}
+                        <p><strong>Word Count:</strong> {{ document.metadata.get('word_count')|default(0) }}</p>
+                    {% endif %}
                 </div>
                 <div class="col-md-6">
                     <p><strong>Compliance Status:</strong> <span class="badge {{ 'bg-success' if document.compliance_status == 'compliant' else 'bg-warning' if document.compliance_status == 'attention_needed' else 'bg-danger' }}">{{ document.compliance_status|default('Unknown')|replace('_', ' ')|title }}</span></p>
@@ -76,12 +79,20 @@
                             <div class="document-content">
                                 {% if document.paragraphs %}
                                     {% for paragraph in document.paragraphs %}
-                                        <div class="paragraph" id="para-{{ paragraph.id }}">
-                                            <p>{{ paragraph.text }}</p>
+                                        <div class="document-paragraph" id="para-{% if paragraph is mapping %}{{ paragraph.id }}{% else %}p{{ loop.index }}{% endif %}">
+                                            {% if paragraph is mapping %}
+                                                <p>{{ paragraph.text }}</p>
+                                            {% else %}
+                                                <p>{{ paragraph }}</p>
+                                            {% endif %}
                                         </div>
                                     {% endfor %}
-                                {% else %}
+                                {% elif document.content %}
+                                    <pre class="document-text">{{ document.content }}</pre>
+                                {% elif document.text %}
                                     <pre class="document-text">{{ document.text }}</pre>
+                                {% else %}
+                                    <div class="alert alert-warning">No document content available</div>
                                 {% endif %}
                             </div>
                         </div>
@@ -134,18 +145,43 @@
                     <div class="card">
                         <div class="card-body">
                             <h5>Document Metadata</h5>
-                            <table class="table table-bordered">
+                            <div class="alert alert-info mb-3">
+                                <i class="bi bi-info-circle"></i> Metadata provides important information about the document that can be useful for compliance analysis.
+                            </div>
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 30%">Property</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
                                 <tbody>
-                                    {% if document.metadata %}
+                                    {% if document.metadata and document.metadata|length > 0 %}
                                         {% for key, value in document.metadata.items() %}
                                             <tr>
-                                                <th scope="row">{{ key }}</th>
-                                                <td>{{ value }}</td>
+                                                <th scope="row">{{ key|replace('_', ' ')|title }}</th>
+                                                <td>
+                                                    {% if value is mapping %}
+                                                        <ul class="list-unstyled mb-0">
+                                                            {% for subkey, subvalue in value.items() %}
+                                                                <li><strong>{{ subkey|replace('_', ' ')|title }}:</strong> {{ subvalue }}</li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    {% elif value is iterable and value is not string %}
+                                                        <ul class="list-unstyled mb-0">
+                                                            {% for item in value %}
+                                                                <li>{{ item }}</li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    {% else %}
+                                                        {{ value }}
+                                                    {% endif %}
+                                                </td>
                                             </tr>
                                         {% endfor %}
                                     {% else %}
                                         <tr>
-                                            <td colspan="2">No metadata available</td>
+                                            <td colspan="2" class="text-center">No metadata available</td>
                                         </tr>
                                     {% endif %}
                                 </tbody>

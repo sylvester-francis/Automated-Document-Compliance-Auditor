@@ -1,0 +1,17 @@
+[lint]
+select = ["E", "F", "W", "I", "B", "C4", "ARG", "SIM"]
+ignore = ["E203", "W503"]
+
+line-length = 100
+target-version = "py39"
+
+[lint.isort]
+known-first-party = ["app"]
+
+[lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"

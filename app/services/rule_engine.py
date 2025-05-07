@@ -116,12 +116,35 @@ def get_compliance_rules(compliance_types: List[str]) -> List[Dict]:
 def check_regex_rule(rule, paragraph):
     """Check if paragraph matches a regex rule"""
     import re
+    # Safely get text from paragraph
+    text = ""
+    if isinstance(paragraph, dict):
+        text = paragraph.get("text", "")
+    elif isinstance(paragraph, str):
+        text = paragraph
+        
+    # If rule doesn't have a pattern attribute, return False (no issue)
+    if not hasattr(rule, 'pattern'):
+        return False
+        
     pattern = re.compile(rule.pattern, re.IGNORECASE)
-    return not bool(pattern.search(paragraph["text"]))
+    return not bool(pattern.search(text))
 
 def check_keyword_rule(rule, paragraph):
     """Check if paragraph does NOT contain any of the required keywords"""
-    text = paragraph["text"].lower()
+    # Safely get text from paragraph
+    if isinstance(paragraph, dict):
+        text = paragraph.get("text", "")
+    elif isinstance(paragraph, str):
+        text = paragraph
+    else:
+        text = ""
+    
+    text = text.lower()
+    
+    # If rule doesn't have keywords attribute, return False (no issue)
+    if not hasattr(rule, 'keywords'):
+        return False
     
     # Rule matches if NONE of the keywords are present
     # (meaning there's a compliance issue)
@@ -145,11 +168,38 @@ def check_document_compliance(document: Dict, compliance_types: List[str]) -> Di
     issues = []
     paragraphs_with_issues = set()
     
+    # Ensure we have valid paragraphs to work with
+    paragraphs = document.get("paragraphs", [])
+    
+    # Handle case where paragraphs might be a string instead of a list
+    if isinstance(paragraphs, str):
+        import json
+        try:
+            # Try to parse as JSON
+            paragraphs = json.loads(paragraphs)
+        except:
+            # If parsing fails, create a single paragraph
+            paragraphs = [{"id": "p1", "text": paragraphs}]
+    
+    # Ensure each paragraph has an id and text field
+    valid_paragraphs = []
+    for i, p in enumerate(paragraphs):
+        if isinstance(p, str):
+            # If paragraph is a string, create a dict with id and text
+            valid_paragraphs.append({"id": f"p{i+1}", "text": p})
+        elif isinstance(p, dict):
+            # Ensure paragraph dict has id and text fields
+            if "id" not in p:
+                p["id"] = f"p{i+1}"
+            if "text" not in p and "content" in p:
+                p["text"] = p["content"]
+            valid_paragraphs.append(p)
+    
     # Check each paragraph against each rule
-    for paragraph in document.get("paragraphs", []):
+    for paragraph in valid_paragraphs:
         for rule in rules:
             # Skip if already found an issue for this rule in this paragraph
-            if any(issue["rule_id"] == rule.rule_id and issue["paragraph_id"] == paragraph["id"] for issue in issues):
+            if any(issue.get("rule_id") == rule.rule_id and issue.get("paragraph_id") == paragraph.get("id") for issue in issues):
                 continue
             
             # Check if paragraph matches rule
@@ -165,17 +215,17 @@ def check_document_compliance(document: Dict, compliance_types: List[str]) -> Di
                 issue = ComplianceIssue(
                     issue_id=issue_id,
                     rule_id=rule.rule_id,
-                    paragraph_id=paragraph["id"],
+                    paragraph_id=paragraph.get("id", "unknown"),
                     description=rule.description,
                     severity=rule.severity,
                     compliance_type=rule.compliance_type,
                     suggestions=[] # Initialize with empty list to ensure the button appears
                 )
                 issues.append(issue.to_dict())
-                paragraphs_with_issues.add(paragraph["id"])
+                paragraphs_with_issues.add(paragraph.get("id", "unknown"))
     
     # Calculate compliance score
-    total_paragraphs = len(document.get("paragraphs", []))
+    total_paragraphs = len(valid_paragraphs)
     if total_paragraphs > 0:
         compliance_score = 100 * (1 - len(paragraphs_with_issues) / total_paragraphs)
     else:

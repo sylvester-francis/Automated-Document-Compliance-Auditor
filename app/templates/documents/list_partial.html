@@ -1,0 +1,40 @@
+{% from "components/pagination.html" import render_pagination %}
+
+<div class="row" id="document-list">
+  {% for document in documents %}
+    <div class="col-md-4 mb-3">
+      <div class="card document-card h-100">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title text-truncate" title="{{ document.filename }}">{{ document.filename }}</h5>
+          <p class="card-text">
+            <small class="text-muted">Uploaded: {{ document.created_at.strftime('%Y-%m-%d %H:%M') if document.created_at else 'Unknown' }}</small>
+          </p>
+          {% if document.document_type %}
+          <p class="card-text">
+            <span class="badge bg-secondary">{{ document.document_type }}</span>
+          </p>
+          {% endif %}
+          {% if document.compliance_score is defined %}
+          <p>
+            <strong>Compliance Score:</strong> 
+            <span class="badge {% if document.compliance_score >= 80 %}bg-success{% elif document.compliance_score >= 50 %}bg-warning{% else %}bg-danger{% endif %}">
+              {{ document.compliance_score|round(1) }}%
+            </span>
+          </p>
+          {% endif %}
+          <div class="mt-auto pt-2 d-flex gap-2">
+            <a href="{{ url_for('documents.view_document', document_id=document._id) }}" class="btn btn-primary">
+              <i class="bi bi-eye me-1"></i> View
+            </a>
+            <a href="{{ url_for('compliance.check_document', document_id=document._id) }}" class="btn btn-outline-secondary">
+              <i class="bi bi-check-circle me-1"></i> Check
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<!-- Pagination controls -->
+{{ render_pagination(pagination, 'documents.list_documents', q=search_query|default(''), type=document_type|default(''), sort=sort_by|default('created_at'), order=sort_dir|default('desc')) }}

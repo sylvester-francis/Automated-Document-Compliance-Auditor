@@ -1,20 +1,89 @@
 {% extends "base.html" %}
+{% from "components/pagination.html" import render_pagination, render_pagination_info %}
 
 {% block title %}Document List{% endblock %}
 
+{% block extra_css %}
+<style>
+  .search-container {
+    margin-bottom: 1.5rem;
+  }
+  .document-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .document-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+  .filter-section {
+    padding: 1rem;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+  }
+</style>
+{% endblock %}
+
 {% block content %}
-<h1>Documents</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>Documents</h1>
+  <a href="{{ url_for('documents.upload_document') }}" class="btn btn-success">
+    <i class="bi bi-upload me-1"></i> Upload New Document
+  </a>
+</div>
+
+<!-- Search and filter section -->
+<div class="filter-section bg-light">
+  <form method="get" action="{{ url_for('documents.list_documents') }}" class="row g-3" id="filter-form">
+    <div class="col-md-6">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search documents..." name="q" value="{{ search_query }}">
+        <button class="btn btn-primary" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <select class="form-select" name="type">
+        <option value="" {% if not document_type %}selected{% endif %}>All Types</option>
+        <option value="pdf" {% if document_type == 'pdf' %}selected{% endif %}>PDF</option>
+        <option value="docx" {% if document_type == 'docx' %}selected{% endif %}>Word</option>
+        <option value="txt" {% if document_type == 'txt' %}selected{% endif %}>Text</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <select class="form-select" name="sort">
+        <option value="created_at" {% if sort_by == 'created_at' %}selected{% endif %}>Date</option>
+        <option value="filename" {% if sort_by == 'filename' %}selected{% endif %}>Name</option>
+        <option value="compliance_score" {% if sort_by == 'compliance_score' %}selected{% endif %}>Compliance</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <select class="form-select" name="order">
+        <option value="desc" {% if sort_dir == 'desc' %}selected{% endif %}>Descending</option>
+        <option value="asc" {% if sort_dir == 'asc' %}selected{% endif %}>Ascending</option>
+      </select>
+    </div>
+  </form>
+</div>
 
 {% if documents %}
-  <div class="row">
+  <!-- Pagination info -->
+  {{ render_pagination_info(pagination, total_label="documents") }}
+  
+  <div class="row" id="document-list">
     {% for document in documents %}
       <div class="col-md-4 mb-3">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{ document.filename or document.filename }}</h5>
+        <div class="card document-card h-100">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-truncate" title="{{ document.filename }}">{{ document.filename }}</h5>
             <p class="card-text">
               <small class="text-muted">Uploaded: {{ document.created_at.strftime('%Y-%m-%d %H:%M') if document.created_at else 'Unknown' }}</small>
             </p>
+            {% if document.document_type %}
+            <p class="card-text">
+              <span class="badge bg-secondary">{{ document.document_type }}</span>
+            </p>
+            {% endif %}
             {% if document.compliance_score is defined %}
             <p>
               <strong>Compliance Score:</strong> 
@@ -23,20 +92,44 @@
               </span>
             </p>
             {% endif %}
-            <a href="{{ url_for('documents.view_document', document_id=document._id) }}" class="btn btn-primary">View</a>
-            <a href="{{ url_for('compliance.check_document', document_id=document._id) }}" class="btn btn-outline-secondary">Check Compliance</a>
+            <div class="mt-auto pt-2 d-flex gap-2">
+              <a href="{{ url_for('documents.view_document', document_id=document._id) }}" class="btn btn-primary">
+                <i class="bi bi-eye me-1"></i> View
+              </a>
+              <a href="{{ url_for('compliance.check_document', document_id=document._id) }}" class="btn btn-outline-secondary">
+                <i class="bi bi-check-circle me-1"></i> Check
+              </a>
+            </div>
           </div>
         </div>
       </div>
     {% endfor %}
   </div>
+  
+  <!-- Pagination controls -->
+  {{ render_pagination(pagination, 'documents.list_documents', q=search_query if search_query else '', type=document_type if document_type else '', sort=sort_by if sort_by else 'created_at', order=sort_dir if sort_dir else 'desc') }}
 {% else %}
   <div class="alert alert-info">
-    No documents found. <a href="{{ url_for('documents.upload_document') }}">Upload a document</a> to get started.
+    {% if search_query or document_type %}
+      No documents found matching your search criteria. <a href="{{ url_for('documents.list_documents') }}">Clear filters</a> or 
+      <a href="{{ url_for('documents.upload_document') }}">upload a new document</a>.
+    {% else %}
+      No documents found. <a href="{{ url_for('documents.upload_document') }}">Upload a document</a> to get started.
+    {% endif %}
   </div>
 {% endif %}
+{% endblock %}
 
-<div class="mt-4">
-  <a href="{{ url_for('documents.upload_document') }}" class="btn btn-success">Upload New Document</a>
-</div>
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Auto-submit form when select fields change
+    const selects = document.querySelectorAll('#filter-form select');
+    selects.forEach(select => {
+      select.addEventListener('change', function() {
+        document.getElementById('filter-form').submit();
+      });
+    });
+  });
+</script>
 {% endblock %}

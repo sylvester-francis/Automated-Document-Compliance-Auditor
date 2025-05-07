@@ -13,7 +13,7 @@
                 <p class="card-text">
                     <strong>Compliance Score:</strong> 
                     <span class="badge {% if results.score >= 80 %}bg-success{% elif results.score >= 50 %}bg-warning{% else %}bg-danger{% endif %}">
-                        {{ results.score|round(1) }}%
+                        {{ results.score|default(0)|round(1) }}%
                     </span>
                 </p>
                 <p class="card-text">
@@ -31,11 +31,23 @@
 <div class="row">
     <div class="col-md-8">
         <div class="document-viewer">
-            {% for paragraph in document.paragraphs %}
-                <div class="document-paragraph {% if paragraph.id in results.issues|map(attribute='paragraph_id')|list %}highlight{% endif %}" id="para-{{ paragraph.id }}">
-                    {{ paragraph.text }}
-                </div>
-            {% endfor %}
+            {% if document.paragraphs %}
+                {% for paragraph in document.paragraphs %}
+                    <div class="document-paragraph {% if (paragraph is mapping and paragraph.id in results.issues|map(attribute='paragraph_id')|list) or ('p' ~ loop.index in results.issues|map(attribute='paragraph_id')|list) %}highlight{% endif %}" id="para-{% if paragraph is mapping %}{{ paragraph.id }}{% else %}p{{ loop.index }}{% endif %}">
+                        {% if paragraph is mapping %}
+                            {{ paragraph.text }}
+                        {% else %}
+                            {{ paragraph }}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% elif document.content %}
+                <pre class="document-text">{{ document.content }}</pre>
+            {% elif document.text %}
+                <pre class="document-text">{{ document.text }}</pre>
+            {% else %}
+                <div class="alert alert-warning">No document content available</div>
+            {% endif %}
         </div>
     </div>
     <div class="col-md-4">
