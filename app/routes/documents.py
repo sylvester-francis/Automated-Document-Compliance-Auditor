@@ -55,3 +55,26 @@ def view_document(document_id):
         return redirect(url_for('documents.list_documents'))
     
     return render_template('documents/view.html', document=document)
+
+@documents_bp.route('/bulk', methods=['GET'])
+def bulk_upload_page():
+    """Show bulk document upload page"""
+    return render_template('documents/bulk_upload.html')
+
+@documents_bp.route('/bulk/jobs', methods=['GET'])
+def list_bulk_jobs():
+    """List active bulk processing jobs"""
+    from app.services.bulk_processor import get_bulk_processor
+    
+    limit = request.args.get('limit', 10, type=int)
+    skip = request.args.get('skip', 0, type=int)
+    group_id = request.args.get('group_id')
+    
+    bulk_processor = get_bulk_processor()
+    jobs = bulk_processor.list_jobs(limit=limit, skip=skip, group_id=group_id)
+    
+    if request.headers.get('HX-Request'):
+        # Return partial for HTMX
+        return render_template('documents/jobs_list_partial.html', jobs=jobs)
+    
+    return jsonify(jobs)

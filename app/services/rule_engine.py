@@ -2,6 +2,7 @@ import uuid
 from typing import Dict, List, Any, Set
 from enum import Enum
 from app.extensions import mongo
+
 class RuleType(Enum):
     REGEX = "regex"
     KEYWORD = "keyword"

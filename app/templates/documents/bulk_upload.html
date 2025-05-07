@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Bulk Document Processing</h1>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            Upload Documents
+        </div>
+        <div class="card-body">
+            <form id="bulk-upload-form" method="POST" action="{{ url_for('compliance.upload_bulk_documents') }}" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="job-name" class="form-label">Job Name</label>
+                    <input type="text" class="form-control" id="job-name" name="job_name" placeholder="Enter a name for this batch job">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="group-id" class="form-label">Group/Patient ID (Optional)</label>
+                    <input type="text" class="form-control" id="group-id" name="group_id" placeholder="Enter a group or patient identifier">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="compliance-types" class="form-label">Compliance Types</label>
+                    <select class="form-select" id="compliance-types" name="compliance_types" multiple>
+                        <option value="GDPR" selected>GDPR</option>
+                        <option value="HIPAA" selected>HIPAA</option>
+                        <option value="CCPA">CCPA</option>
+                        <option value="SOX">SOX</option>
+                    </select>
+                    <div class="form-text">Hold Ctrl/Cmd to select multiple</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="files" class="form-label">Documents (PDF, DOCX, TXT)</label>
+                    <input class="form-control" type="file" id="files" name="files[]" multiple>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Start Processing</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header">
+            Active Jobs
+        </div>
+        <div class="card-body">
+            <div id="jobs-list" class="list-group">
+                <!-- Jobs will be loaded here via HTMX -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HTMX for reactive UI -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Load active jobs when page loads
+        htmx.ajax('GET', '{{ url_for("compliance.list_bulk_jobs") }}', '#jobs-list');
+        
+        // Set up form submission with HTMX
+        const form = document.getElementById('bulk-upload-form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            
+            // Show loading indicator
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+            submitBtn.disabled = true;
+            
+            // Submit form with HTMX
+            fetch('{{ url_for("compliance.upload_bulk_documents") }}', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Reset form
+                form.reset();
+                
+                // Restore button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                // Show success message
+                alert('Bulk processing job started with ID: ' + data.job_id);
+                
+                // Reload jobs list
+                htmx.ajax('GET', '{{ url_for("compliance.list_bulk_jobs") }}', '#jobs-list');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                alert('Error starting bulk job: ' + error);
+            });
+        });
+    });
+</script>
+{% endblock %}

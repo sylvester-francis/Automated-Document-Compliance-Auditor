@@ -1,63 +1,209 @@
+<!-- app/templates/documents/view.html -->
 {% extends "base.html" %}
 
-{% block title %}View Document{% endblock %}
+{% block title %}Document Details - {{ document.filename }}{% endblock %}
 
 {% block content %}
-<h1>{{ document.filename }}</h1>
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('documents.list_documents') }}">Documents</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ document.filename }}</li>
+        </ol>
+    </nav>
 
-<div class="row mb-3">
-    <div class="col-md-12">
-        <a href="{{ url_for('documents.list_documents') }}" class="btn btn-secondary">Back to Documents</a>
-        <a href="{{ url_for('compliance.check_document', document_id=document._id) }}" class="btn btn-primary">Check Compliance</a>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">
-                Document Content
+    <div class="row">
+        <div class="col-md-8">
+            <h1>{{ document.filename }}</h1>
+            <p class="text-muted">Uploaded on {{ document.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <div class="compliance-score large-score">
+                <div class="score-value">{{ document.compliance_score|default('0') }}%</div>
+                <div class="score-label">Compliance Score</div>
             </div>
-            <div class="card-body document-viewer">
-                {% for paragraph in document.paragraphs %}
-                <div class="document-paragraph {% if document.compliance_issues|selectattr('paragraph_id', 'equalto', paragraph.id)|list %}highlight{% endif %}" id="para-{{ paragraph.id }}">
-                    {{ paragraph.text }}
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <span>Document Information</span>
+            <div class="action-buttons">
+                <a href="{{ url_for('documents.edit_document', document_id=document._id) }}" class="btn btn-sm btn-primary">
+                    <i class="bi bi-pencil"></i> Edit
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Document Type:</strong> {{ document.document_type|default('Unknown') }}</p>
+                    <p><strong>File Size:</strong> {{ (document.file_size / 1024)|round(1) }} KB</p>
+                    <p><strong>File Format:</strong> {{ document.file_format|default('Unknown') }}</p>
                 </div>
-                {% endfor %}
+                <div class="col-md-6">
+                    <p><strong>Compliance Status:</strong> <span class="badge {{ 'bg-success' if document.compliance_status == 'compliant' else 'bg-warning' if document.compliance_status == 'attention_needed' else 'bg-danger' }}">{{ document.compliance_status|default('Unknown')|replace('_', ' ')|title }}</span></p>
+                    <p><strong>Issues Count:</strong> {{ document.compliance_issues|default([])|length }}</p>
+                    <p><strong>Compliance Types:</strong> {{ document.compliance_types|default(['None'])|join(', ') }}</p>
+                </div>
+            </div>
+            
+            <div class="action-buttons mt-3">
+                <!-- Existing buttons... -->
+                <a href="{{ url_for('compliance.check_document', document_id=document._id) }}" class="btn btn-primary">
+                    <i class="bi bi-shield-check"></i> Run Compliance Check
+                </a>
+                <a href="{{ url_for('compliance.export_compliance_report', document_id=document._id) }}" 
+                   class="btn btn-success ms-2">
+                    <i class="bi bi-download"></i> Export PDF Report
+                </a>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card mb-4">
-            <div class="card-header">
-                Document Info
-            </div>
-            <div class="card-body">
-                <p><strong>Filename:</strong> {{ document.filename }}</p>
-                <p><strong>Uploaded:</strong> {{ document.created_at.strftime('%Y-%m-%d %H:%M') if document.created_at else 'Unknown' }}</p>
-                
-                {% if document.compliance_score is defined %}
-                <p>
-                    <strong>Compliance Score:</strong> 
-                    <span class="badge {% if document.compliance_score >= 80 %}bg-success{% elif document.compliance_score >= 50 %}bg-warning{% else %}bg-danger{% endif %}">
-                        {{ document.compliance_score|round(1) }}%
-                    </span>
-                </p>
-                {% endif %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs" id="documentTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="content-tab" data-bs-toggle="tab" data-bs-target="#content" type="button" role="tab" aria-controls="content" aria-selected="true">Document Content</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="issues-tab" data-bs-toggle="tab" data-bs-target="#issues" type="button" role="tab" aria-controls="issues" aria-selected="false">Compliance Issues ({{ document.compliance_issues|default([])|length }})</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="metadata-tab" data-bs-toggle="tab" data-bs-target="#metadata" type="button" role="tab" aria-controls="metadata" aria-selected="false">Metadata</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="documentTabsContent">
+                <div class="tab-pane fade show active" id="content" role="tabpanel" aria-labelledby="content-tab">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="document-content">
+                                {% if document.paragraphs %}
+                                    {% for paragraph in document.paragraphs %}
+                                        <div class="paragraph" id="para-{{ paragraph.id }}">
+                                            <p>{{ paragraph.text }}</p>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <pre class="document-text">{{ document.text }}</pre>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="issues" role="tabpanel" aria-labelledby="issues-tab">
+                    <div class="card">
+                        <div class="card-body">
+                            {% if document.compliance_issues and document.compliance_issues|length > 0 %}
+                                <div class="alert alert-warning">
+                                    <h5 class="alert-heading">{{ document.compliance_issues|length }} compliance issues found</h5>
+                                    <p>These issues should be addressed to ensure compliance with regulations.</p>
+                                </div>
+                                <div class="list-group mt-3">
+                                    {% for issue in document.compliance_issues %}
+                                        <div class="list-group-item">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1">{{ issue.description }}</h5>
+                                                <span class="badge {{ 'bg-danger' if issue.severity == 'high' else 'bg-warning' if issue.severity == 'medium' else 'bg-info' }}">{{ issue.severity|upper }}</span>
+                                            </div>
+                                            <p class="mb-1">{{ issue.compliance_type }}</p>
+                                            {% if issue.paragraph_id %}
+                                                <small class="text-muted">
+                                                    <a href="#para-{{ issue.paragraph_id }}">View related content</a>
+                                                </small>
+                                            {% endif %}
+                                            {% if issue.suggestions %}
+                                                <div class="mt-2">
+                                                    <strong>Suggestions:</strong>
+                                                    <ul class="suggestions-list">
+                                                        {% for suggestion in issue.suggestions %}
+                                                            <li>{{ suggestion }}</li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="alert alert-success">
+                                    <h5 class="alert-heading">No compliance issues found</h5>
+                                    <p>This document appears to comply with the selected regulations.</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="metadata" role="tabpanel" aria-labelledby="metadata-tab">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Document Metadata</h5>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    {% for key, value in document.metadata.items() %}
+                                        <tr>
+                                            <th scope="row">{{ key }}</th>
+                                            <td>{{ value }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        {% if document.compliance_issues %}
-        <div class="card">
-            <div class="card-header">
-                Compliance Issues
-            </div>
-            <div class="card-body">
-                <p>Found {{ document.compliance_issues|length }} compliance issues</p>
-                <a href="{{ url_for('compliance.check_document', document_id=document._id) }}" class="btn btn-primary">View Full Report</a>
-            </div>
-        </div>
-        {% endif %}
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // JavaScript to highlight paragraphs when referenced from issues tab
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if URL has a paragraph reference
+        const hash = window.location.hash;
+        if (hash && hash.startsWith('#para-')) {
+            highlightParagraph(hash.substring(1));
+            
+            // Switch to content tab
+            const contentTab = document.getElementById('content-tab');
+            const tab = new bootstrap.Tab(contentTab);
+            tab.show();
+        }
+        
+        // Add click handlers for paragraph links
+        const paragraphLinks = document.querySelectorAll('a[href^="#para-"]');
+        paragraphLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                const paragraphId = this.getAttribute('href').substring(1);
+                
+                // Switch to content tab
+                const contentTab = document.getElementById('content-tab');
+                const tab = new bootstrap.Tab(contentTab);
+                tab.show();
+                
+                // Highlight the paragraph (with slight delay to let tab switch complete)
+                setTimeout(() => {
+                    highlightParagraph(paragraphId);
+                }, 100);
+            });
+        });
+    });
+    
+    function highlightParagraph(id) {
+        // Remove any existing highlights
+        document.querySelectorAll('.paragraph.highlighted').forEach(p => {
+            p.classList.remove('highlighted');
+        });
+        
+        // Add highlight to the target paragraph
+        const paragraph = document.getElementById(id);
+        if (paragraph) {
+            paragraph.classList.add('highlighted');
+            paragraph.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+</script>
 {% endblock %}
