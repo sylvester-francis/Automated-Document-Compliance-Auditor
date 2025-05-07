@@ -1,7 +1,0 @@
-2025-05-07 14:53:22,969 - pdf_diagnostic - INFO - ReportLab version: 4.4.0
-2025-05-07 14:53:23,026 - pdf_diagnostic - INFO - Available fonts: Courier, Courier-Bold, Courier-BoldOblique, Courier-Oblique, Helvetica, Helvetica-Bold, Helvetica-BoldOblique, Helvetica-Oblique, Symbol, Times-Bold, Times-BoldItalic, Times-Italic, Times-Roman, ZapfDingbats
-2025-05-07 14:53:23,027 - pdf_diagnostic - INFO - Basic PDF generation successful. Size: 1456 bytes
-2025-05-07 14:53:23,028 - pdf_diagnostic - INFO - Complex PDF generation successful. Size: 1988 bytes
-2025-05-07 14:53:23,141 - pdf_diagnostic - INFO - Successfully created PDF exporter instance
-2025-05-07 14:53:23,162 - pdf_diagnostic - ERROR - Error testing PDF exporter: 'NoneType' object has no attribute 'documents'
-2025-05-07 14:53:23,162 - pdf_diagnostic - INFO - Free disk space: 396995.04 MB
