@@ -72,6 +72,7 @@ class DocumentClassifier:
         self.model.fit(X_train, y_train)
         logger.info("Simple document classifier model created")
 
+
             
         
     
