@@ -1,0 +1,37 @@
+2025-05-07 13:40:08 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-07 13:40:08 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-07 13:40:08 - app.config - INFO - Anthropic API key loaded successfully with length: 108
+2025-05-07 13:40:08 - app.config - INFO - Config loaded Anthropic API key with length: 108
+2025-05-07 13:41:39 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-07 13:41:39 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-07 13:41:39 - app.config - INFO - Anthropic API key loaded successfully with length: 108
+2025-05-07 13:41:39 - app.config - INFO - Config loaded Anthropic API key with length: 108
+2025-05-07 13:46:12 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-07 13:46:12 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-07 13:46:12 - app.config - INFO - Anthropic API key loaded successfully with length: 108
+2025-05-07 13:46:12 - app.config - INFO - Config loaded Anthropic API key with length: 108
+2025-05-07 13:46:12 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-07 13:46:12 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-07 13:46:12 - werkzeug - INFO -  * Restarting with stat
+2025-05-07 13:46:12 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-07 13:46:12 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-07 13:46:12 - app.config - INFO - Anthropic API key loaded successfully with length: 108
+2025-05-07 13:46:12 - app.config - INFO - Config loaded Anthropic API key with length: 108
+2025-05-07 13:46:12 - werkzeug - WARNING -  * Debugger is active!
+2025-05-07 13:46:12 - werkzeug - INFO -  * Debugger PIN: 172-796-075
+2025-05-07 13:46:20 - werkzeug - INFO - 127.0.0.1 - - [07/May/2025 13:46:20] "GET / HTTP/1.1" 200 -
+2025-05-07 13:46:20 - werkzeug - INFO - 127.0.0.1 - - [07/May/2025 13:46:20] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-07 13:46:20 - werkzeug - INFO - 127.0.0.1 - - [07/May/2025 13:46:20] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-07 13:46:29 - werkzeug - INFO - 127.0.0.1 - - [07/May/2025 13:46:29] "GET /documents/ HTTP/1.1" 200 -
+2025-05-07 13:46:29 - werkzeug - INFO - 127.0.0.1 - - [07/May/2025 13:46:29] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-07 13:46:29 - werkzeug - INFO - 127.0.0.1 - - [07/May/2025 13:46:29] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-07 13:46:33 - werkzeug - INFO - 127.0.0.1 - - [07/May/2025 13:46:33] "GET /documents/upload HTTP/1.1" 200 -
+2025-05-07 13:46:33 - werkzeug - INFO - 127.0.0.1 - - [07/May/2025 13:46:33] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-07 13:46:33 - werkzeug - INFO - 127.0.0.1 - - [07/May/2025 13:46:33] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-05-07 13:46:48 - app - ERROR - Error processing document: 'ExtractionService' object has no attribute 'extract_from_pdf'
+2025-05-07 13:46:48 - werkzeug - INFO - 127.0.0.1 - - [07/May/2025 13:46:48] "[35m[1mPOST /documents/upload HTTP/1.1[0m" 500 -
+2025-05-07 13:46:48 - werkzeug - INFO - 127.0.0.1 - - [07/May/2025 13:46:48] "GET /documents/upload?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-05-07 13:46:48 - werkzeug - INFO - 127.0.0.1 - - [07/May/2025 13:46:48] "GET /documents/upload?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-05-07 13:46:48 - werkzeug - INFO - 127.0.0.1 - - [07/May/2025 13:46:48] "GET /documents/upload?__debugger__=yes&cmd=resource&f=console.png&s=GyMMrt0KRDFyiKuFvXHg HTTP/1.1" 200 -
+2025-05-07 13:46:48 - werkzeug - INFO - 127.0.0.1 - - [07/May/2025 13:46:48] "GET /documents/upload?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
