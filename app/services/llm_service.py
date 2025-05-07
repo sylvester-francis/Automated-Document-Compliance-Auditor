@@ -46,15 +46,18 @@ def generate_suggestion(document: Dict, issue: Dict) -> str:
         Keep your response concise and focused on the solution.
         """
         
-        # Generate suggestion
-        response = openai.Completion.create(
-            model="gpt-3.5-turbo-instruct",
-            prompt=prompt,
+        # Generate suggestion using the ChatCompletion API (newer than Completion API)
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a legal and compliance expert specializing in GDPR, HIPAA and other regulatory frameworks."},
+                {"role": "user", "content": prompt}
+            ],
             max_tokens=300,
             temperature=0.5
         )
         
-        suggestion = response.choices[0].text.strip()
+        suggestion = response.choices[0].message.content.strip()
         return suggestion
         
     except Exception as e:
