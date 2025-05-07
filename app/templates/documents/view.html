@@ -28,17 +28,13 @@
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
             <span>Document Information</span>
-            <div class="action-buttons">
-                <a href="{{ url_for('documents.edit_document', document_id=document._id) }}" class="btn btn-sm btn-primary">
-                    <i class="bi bi-pencil"></i> Edit
-                </a>
-            </div>
+            <!-- Removed the edit button that was causing the error -->
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
                     <p><strong>Document Type:</strong> {{ document.document_type|default('Unknown') }}</p>
-                    <p><strong>File Size:</strong> {{ (document.file_size / 1024)|round(1) }} KB</p>
+                    <p><strong>File Size:</strong> {{ (document.file_size / 1024)|round(1) if document.file_size else 'Unknown' }} KB</p>
                     <p><strong>File Format:</strong> {{ document.file_format|default('Unknown') }}</p>
                 </div>
                 <div class="col-md-6">
@@ -49,7 +45,6 @@
             </div>
             
             <div class="action-buttons mt-3">
-                <!-- Existing buttons... -->
                 <a href="{{ url_for('compliance.check_document', document_id=document._id) }}" class="btn btn-primary">
                     <i class="bi bi-shield-check"></i> Run Compliance Check
                 </a>
@@ -141,12 +136,18 @@
                             <h5>Document Metadata</h5>
                             <table class="table table-bordered">
                                 <tbody>
-                                    {% for key, value in document.metadata.items() %}
+                                    {% if document.metadata %}
+                                        {% for key, value in document.metadata.items() %}
+                                            <tr>
+                                                <th scope="row">{{ key }}</th>
+                                                <td>{{ value }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% else %}
                                         <tr>
-                                            <th scope="row">{{ key }}</th>
-                                            <td>{{ value }}</td>
+                                            <td colspan="2">No metadata available</td>
                                         </tr>
-                                    {% endfor %}
+                                    {% endif %}
                                 </tbody>
                             </table>
                         </div>
@@ -158,7 +159,7 @@
 </div>
 {% endblock %}
 
-{% block scripts %}
+{% block extra_js %}
 <script>
     // JavaScript to highlight paragraphs when referenced from issues tab
     document.addEventListener('DOMContentLoaded', function() {

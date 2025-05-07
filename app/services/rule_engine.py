@@ -34,6 +34,7 @@ def get_compliance_rules(compliance_types: List[str]) -> List[Dict]:
     Get compliance rules for specified compliance types
     
     Args:
+    
         compliance_types: List of compliance type names
         
     Returns:

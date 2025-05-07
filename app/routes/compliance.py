@@ -1,8 +1,9 @@
 # app/routes/compliance.py
 
-from flask import Blueprint, render_template, request, jsonify, current_app
+from flask import Blueprint, render_template, request, jsonify, current_app,make_response
 from app.services.rule_engine import check_document_compliance
 from datetime import datetime
+from app.extensions import mongo
 
 compliance_bp = Blueprint('compliance', __name__, url_prefix='/compliance')
 
@@ -10,8 +11,6 @@ compliance_bp = Blueprint('compliance', __name__, url_prefix='/compliance')
 @compliance_bp.route('/check/<document_id>', methods=['GET', 'POST'])
 def check_document(document_id):
     """Check document compliance."""
-    from app.extensions import mongo
-
     document = mongo.db.documents.find_one({'_id': document_id})
     if not document:
         return jsonify({'error': 'Document not found'}), 404
@@ -149,16 +148,17 @@ def get_bulk_job_status(job_id):
 @compliance_bp.route('/export/<document_id>', methods=['GET'])
 def export_compliance_report(document_id):
     """Export compliance report as PDF"""
-    # Get document from database
-    document = mongo.db.documents.find_one({'_id': document_id})
-    if not document:
-        return jsonify({'error': 'Document not found'}), 404
-    
-    # Generate PDF report
-    from app.services.pdf_exporter import get_pdf_exporter
-    pdf_exporter = get_pdf_exporter()
-    
     try:
+        # First get the document - do error handling here
+        document = mongo.db.documents.find_one({'_id': document_id})
+        if not document:
+            return jsonify({'error': 'Document not found'}), 404
+        
+        # Generate PDF report by passing the document directly
+        from app.services.pdf_exporter import get_pdf_exporter
+        pdf_exporter = get_pdf_exporter()
+        
+        # Pass the document directly to avoid redundant lookup
         pdf_data = pdf_exporter.generate_compliance_report(document)
         
         # Return PDF file
@@ -168,4 +168,6 @@ def export_compliance_report(document_id):
         return response
     
     except Exception as e:
+        current_app.logger.error(f"Error in export_compliance_report: {str(e)}")
         return jsonify({'error': f'Error generating PDF: {str(e)}'}), 500
+    

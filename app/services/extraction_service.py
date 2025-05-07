@@ -1,11 +1,11 @@
-# Enhanced app/services/extraction_service.py
+# app/services/extraction_service.py
 
 import io
 import os
 import re
 import logging
 import csv
-from typing import Dict, List, Any, Optional, Union
+from typing import Dict, List, Any, Optional, Union, Tuple
 from datetime import datetime
 
 # Import existing dependencies
@@ -99,28 +99,6 @@ class ExtractionService:
             "line_count": len(text.splitlines()),
         }
         return stats
-
-
-def extract_document_text(file_path: str, file_content: bytes = None) -> str:
-    """
-    Extract text content from a document file.
-    This is a wrapper around the extraction service for backward compatibility.
-
-    Args:
-        file_path: Path to the document file
-        file_content: Optional bytes content of the file
-
-    Returns:
-        Extracted text as a string
-    """
-    # Get extraction service
-    extraction_service = get_extraction_service()
-
-    # Extract text
-    result = extraction_service.extract_text(file_path, file_content)
-
-    # Return text content
-    return result.get("text", "")
 
     def extract_from_pdf(
         self, file_path: str, file_content: bytes = None
@@ -908,3 +886,33 @@ def get_extraction_service() -> ExtractionService:
     if _extraction_service_instance is None:
         _extraction_service_instance = ExtractionService()
     return _extraction_service_instance
+
+
+def extract_document_text(file_path: str, file_content: bytes = None) -> Tuple[str, List[Dict[str, str]]]:
+    """
+    Extract text content from a document file.
+    This is a wrapper around the extraction service for backward compatibility.
+
+    Args:
+        file_path: Path to the document file
+        file_content: Optional bytes content of the file
+
+    Returns:
+        Tuple containing:
+            - Extracted text as a string
+            - List of paragraph dictionaries with IDs
+    """
+    # Get extraction service
+    extraction_service = get_extraction_service()
+
+    # Extract text
+    result = extraction_service.extract_text(file_path, file_content)
+
+    # Get text content
+    text = result.get("text", "")
+    
+    # Process into paragraphs with IDs
+    from app.utils.text_processing import extract_paragraphs_with_ids
+    paragraphs = extract_paragraphs_with_ids(text)
+    
+    return text, paragraphs

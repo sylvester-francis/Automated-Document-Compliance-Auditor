@@ -1,0 +1,85 @@
+COMPANY PRIVACY POLICY
+
+Last Updated: May 7, 2025
+
+1. INTRODUCTION
+
+Welcome to our website. This privacy policy explains how we collect, use, and protect your information when you visit our site or use our services. This policy is designed to comply with both the General Data Protection Regulation (GDPR) and the Health Insurance Portability and Accountability Act (HIPAA) where applicable.
+
+2. INFORMATION WE COLLECT
+
+We collect information that you provide directly to us, such as when you create an account, fill out a form, or communicate with us. This may include your name, email address, phone number, payment information, and in some cases, health information when you use our healthcare-related services.
+
+We also automatically collect certain information when you visit our website, including your IP address, browser type, and information about how you use our site.
+
+3. HOW WE USE YOUR INFORMATION
+
+We use the information we collect to:
+- Provide and maintain our services
+- Process your transactions
+- Send you marketing communications (with your consent)
+- Improve our website and services
+- Comply with legal obligations
+
+The specific purposes for processing your data are clearly outlined here, and we only process your data for these stated purposes, as required by data protection regulations.
+
+4. DATA RETENTION
+
+We store your personal data for as long as necessary to fulfill the purposes outlined in this policy. Once the data is no longer needed for these purposes, we will securely delete or anonymize it unless we are legally required to retain it longer.
+
+5. DATA SECURITY
+
+We implement comprehensive security measures to protect your personal information from unauthorized access, disclosure, alteration, and destruction. These measures include encryption, access controls, regular security assessments, and staff training on data protection.
+
+6. THIRD-PARTY SERVICES
+
+We may share your information with trusted third parties who assist us in operating our website and conducting our business. All third parties are contractually obligated to maintain the confidentiality and security of your information and to process it only as directed by us.
+
+7. YOUR RIGHTS UNDER GDPR
+
+Under the General Data Protection Regulation (GDPR), you have the following rights:
+
+a) Right to Access: You have the right to access and obtain a copy of your personal data that we process. To exercise this right, please contact us at privacy@example.com.
+
+b) Right to Rectification: You have the right to request correction of inaccurate personal data or completion of incomplete personal data.
+
+c) Right to Erasure (Right to be Forgotten): You have the right to request the deletion of your personal data in certain circumstances, such as when the data is no longer necessary, when you withdraw consent, or when you object to processing based on legitimate interests.
+
+d) Right to Restriction of Processing: You have the right to request restriction of processing your personal data under certain conditions.
+
+e) Right to Data Portability: You have the right to receive your personal data in a structured, commonly used, and machine-readable format and to transmit that data to another controller.
+
+f) Right to Object: You have the right to object to the processing of your personal data for direct marketing purposes or when processing is based on legitimate interests.
+
+8. YOUR RIGHTS UNDER HIPAA
+
+For health information protected under the Health Insurance Portability and Accountability Act (HIPAA), you have the following rights:
+
+a) Notice of Privacy Practices: This privacy policy serves as our Notice of Privacy Practices, describing how we may use and disclose your protected health information to carry out treatment, payment, healthcare operations, and for other purposes permitted or required by law.
+
+b) Right to Amend: You have the right to request that we amend your health information if you believe it is incorrect or incomplete. To request an amendment, please submit your request in writing to our Privacy Officer at privacy@example.com.
+
+c) Disclosure Accounting: You have the right to receive an accounting of certain disclosures we have made of your protected health information for purposes other than treatment, payment, healthcare operations, or certain other activities.
+
+d) Right to Request Restrictions: You have the right to request restrictions on how we use or disclose your health information for treatment, payment, or healthcare operations.
+
+e) Right to Confidential Communications: You have the right to request that we communicate with you about medical matters in a certain way or at a certain location.
+
+9. CONTACT INFORMATION
+
+If you have questions about this policy or wish to exercise any of your rights regarding your personal data, please contact us at:
+
+Privacy Officer
+Example Company, Inc.
+123 Main Street
+Anytown, CA 12345
+Email: privacy@example.com
+Phone: (555) 123-4567
+
+For data subjects in the EU, our EU representative can be contacted at eu-rep@example.com.
+
+10. CHANGES TO THIS POLICY
+
+We may update this policy from time to time. We will notify you of any significant changes by posting the new policy on this page and, where appropriate and possible, sending you a notification. We encourage you to review this policy periodically for the latest information on our privacy practices.
+
+Last updated: May 7, 2025
