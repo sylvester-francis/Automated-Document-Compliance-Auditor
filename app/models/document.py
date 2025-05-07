@@ -1,7 +1,7 @@
 # app/models/document.py
 from datetime import datetime
 from enum import Enum
-from typing import List, Dict, Optional
+from typing import List, Dict
 
 class DocumentType(str, Enum):
     CONTRACT = "contract"

@@ -1,6 +1,5 @@
 import logging
 from app import create_app
-import os
 # Configure logging to file and console
 logging.basicConfig(
     level=logging.INFO,

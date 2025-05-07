@@ -4,7 +4,7 @@ Centralized error handling for the application.
 import logging
 import traceback
 from functools import wraps
-from flask import flash, current_app, jsonify, request
+from flask import flash, jsonify, request
 
 logger = logging.getLogger(__name__)
 

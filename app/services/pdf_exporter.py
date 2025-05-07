@@ -1,21 +1,16 @@
 # app/services/pdf_exporter.py
 
 import io
-import os
 import logging
 from datetime import datetime
-from typing import Dict, List, Any, Optional, Union
+from typing import Dict, Union
 
 from reportlab.lib.pagesizes import letter
-from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.platypus import (
-    SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, 
-    Image, PageBreak
+    SimpleDocTemplate, Paragraph, Spacer, PageBreak
 )
-from reportlab.graphics.shapes import Drawing
-from reportlab.graphics.charts.piecharts import Pie
 
 # Import but don't use directly to avoid circular imports
 from flask import current_app

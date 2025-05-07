@@ -32,7 +32,7 @@ class DocumentClassifier:
             
             if os.path.exists(self.model_path):
                 self.model = joblib.load(self.model_path)
-                logger.info(f"Loaded document classifier model")
+                logger.info("Loaded document classifier model")
             else:
                 # Create a simple model if no pre-trained model exists
                 self._create_simple_model()

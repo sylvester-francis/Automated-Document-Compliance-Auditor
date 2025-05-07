@@ -3,10 +3,8 @@ import os
 import uuid
 from datetime import datetime
 from flask import current_app
-from werkzeug.utils import secure_filename
 
 from app.models.document import Document, DocumentType, ComplianceStatus
-from app.services.extraction_service import extract_document_text
 
 def process_document(file_path, filename):
     """
@@ -21,7 +19,6 @@ def process_document(file_path, filename):
     """
     from app.extensions import mongo
     from app.services.extraction_service import get_extraction_service
-    import os
     
     try:
         # Get extraction service to access full extraction results including metadata
@@ -45,7 +42,8 @@ def process_document(file_path, filename):
         if 'file_size' not in metadata:
             try:
                 metadata['file_size'] = os.path.getsize(file_path)
-            except:
+            except OSError as e:
+                current_app.logger.warning(f"Could not get file size: {e}")
                 metadata['file_size'] = 0
                 
         # Extract file format from filename
@@ -72,7 +70,8 @@ def process_document(file_path, filename):
         try:
             file_size = os.path.getsize(file_path)
             metadata['file_size'] = file_size
-        except:
+        except OSError as e:
+            current_app.logger.warning(f"Could not get file size: {e}")
             file_size = 0
             metadata['file_size'] = 0
         
@@ -96,7 +95,7 @@ def process_document(file_path, filename):
             content=full_text,
             paragraphs=paragraphs,
             metadata=metadata,
-            document_type=DocumentType.OTHER,  # Use proper enum value
+            document_type=document_type,  # Use the determined document type
             compliance_status=ComplianceStatus.PENDING_REVIEW,
             created_at=datetime.now(),
             updated_at=datetime.now()

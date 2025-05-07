@@ -5,11 +5,10 @@ import os
 import re
 import logging
 import csv
-from typing import Dict, List, Any, Optional, Union, Tuple
+from typing import Dict, List, Any, Tuple
 from datetime import datetime
 
 # Import existing dependencies
-import PyPDF2
 from PyPDF2 import PdfReader
 
 logger = logging.getLogger(__name__)
@@ -77,8 +76,9 @@ class ExtractionService:
                     result["metadata"][
                         "warning"
                     ] = f"Unsupported file format: {ext}. Treating as plain text."
-                except:
-                    result["error"] = f"Unsupported file format: {ext}"
+                except IOError as e:
+                    logger.error(f"Error reading file as text: {str(e)}")
+                    result["error"] = f"Unsupported file format: {ext}. Error: {str(e)}"
 
             # Calculate statistics about the extracted text
             if "text" in result and result["text"]:
@@ -641,7 +641,8 @@ class ExtractionService:
                                 part.get_payload(decode=True).decode(errors="replace")
                                 + "\n"
                             )
-                        except:
+                        except (UnicodeDecodeError, AttributeError) as e:
+                            logger.warning(f"Error decoding email part: {str(e)}")
                             body += str(part.get_payload()) + "\n"
                     elif content_type == "text/html":
                         # Simple HTML to text conversion
@@ -659,13 +660,15 @@ class ExtractionService:
                                 errors="replace"
                             )
                             body += re.sub(r"<[^>]+>", " ", html) + "\n"
-                        except:
+                        except (UnicodeDecodeError, AttributeError) as e:
+                            logger.warning(f"Error processing HTML part: {str(e)}")
                             body += str(part.get_payload()) + "\n"
             else:
                 # Not multipart - just get the payload
                 try:
                     body = msg.get_payload(decode=True).decode(errors="replace")
-                except:
+                except (UnicodeDecodeError, AttributeError, TypeError) as e:
+                    logger.warning(f"Error decoding email payload: {str(e)}")
                     body = str(msg.get_payload())
 
             # Format as text

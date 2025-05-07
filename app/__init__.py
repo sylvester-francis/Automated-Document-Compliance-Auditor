@@ -42,7 +42,7 @@ def create_app(test_config=None):
     
     # Initialize rate limiting
     from app.utils.rate_limiter import init_limiter
-    limiter = init_limiter(app)
+    init_limiter(app)  # Initialize limiter without unused variable
     
     # Initialize caching
     from flask_caching import Cache

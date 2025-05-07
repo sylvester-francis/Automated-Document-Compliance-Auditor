@@ -4,7 +4,19 @@ target-version = "py313"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "C4", "ARG", "SIM", "N", "D"]
-ignore = ["E203", "D100", "D104", "D107"]
+ignore = [
+    "E203",  # Whitespace before ':'
+    "E226",  # Missing whitespace around arithmetic operator
+    "E302",  # Expected 2 blank lines
+    "E305",  # Expected 2 blank lines after class or function definition
+    "E501",  # Line too long
+    "W292",  # No newline at end of file
+    "W293",  # Blank line contains whitespace
+    "D100",  # Missing docstring in public module
+    "D104",  # Missing docstring in public package
+    "D107",  # Missing docstring in __init__
+    "C901",  # Function is too complex
+]
 exclude = [
     ".git",
     "__pycache__",

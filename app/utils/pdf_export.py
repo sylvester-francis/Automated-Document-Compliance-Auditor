@@ -9,7 +9,6 @@ from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
-from flask import current_app
 
 def generate_compliance_pdf(document, compliance_results):
     """

@@ -8,7 +8,10 @@ A GenAI-powered tool that scans contracts and regulatory filings for missing cla
 
 The Automated Document Compliance Auditor is a Flask-based web application that helps organizations ensure their documents comply with various regulations such as GDPR and HIPAA. It analyzes documents to identify missing clauses and provides AI-powered suggestions for remediation using Anthropic's Claude API.
 
-![Application Screenshot](https://via.placeholder.com/800x400?text=Document+Compliance+Auditor)
+<!-- Main application screenshot - replace with an actual screenshot -->
+![Application Screenshot](static/images/screenshots/main-dashboard.png)
+
+<!-- If the screenshot hasn't been added yet, take a screenshot of the main dashboard and save it to static/images/screenshots/main-dashboard.png -->
 
 ## Key Features
 
@@ -26,20 +29,45 @@ The Automated Document Compliance Auditor is a Flask-based web application that 
 ## Application Screenshots
 
 ### Document List View
-![Document List](https://via.placeholder.com/800x400?text=Document+List+View)
+<!-- Replace with actual screenshot of the document list page -->
+![Document List](static/images/screenshots/document-list.png)
 *Browse uploaded documents with filtering and sorting options*
 
+### Document Upload
+<!-- Replace with actual screenshot of the document upload page -->
+![Document Upload](static/images/screenshots/document-upload.png)
+*Upload new documents for compliance checking*
+
 ### Document View
-![Document View](https://via.placeholder.com/800x400?text=Document+View)
+<!-- Replace with actual screenshot of the document view page -->
+![Document View](static/images/screenshots/document-view.png)
 *View document content with compliance issues highlighted*
 
 ### Compliance Check Results
-![Compliance Results](https://via.placeholder.com/800x400?text=Compliance+Results)
+<!-- Replace with actual screenshot of the compliance results page -->
+![Compliance Results](static/images/screenshots/compliance-results.png)
 *View detailed compliance issues and get AI-powered suggestions*
 
+### AI Suggestions
+<!-- Replace with actual screenshot of AI suggestions being generated -->
+![AI Suggestions](static/images/screenshots/ai-suggestions.png)
+*Generate AI-powered suggestions for addressing compliance issues*
+
 ### Dark Mode Support
-![Dark Mode](https://via.placeholder.com/800x400?text=Dark+Mode)
+<!-- Replace with actual screenshot of the application in dark mode -->
+![Dark Mode](static/images/screenshots/dark-mode.png)
 *Toggle between light and dark mode for comfortable viewing*
+
+### PDF Export
+<!-- Replace with actual screenshot of a PDF export -->
+![PDF Export](static/images/screenshots/pdf-export.png)
+*Export compliance reports as PDF documents*
+
+> **Instructions for adding screenshots:**
+> 1. Take screenshots of each of the above application views
+> 2. Save them to the `static/images/screenshots/` directory with the filenames shown above
+> 3. Make sure the screenshots clearly demonstrate the feature being highlighted
+> 4. Recommended resolution: 1280x720 or higher
 
 ## System Architecture
 

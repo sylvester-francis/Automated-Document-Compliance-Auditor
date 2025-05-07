@@ -2,7 +2,7 @@
 Pagination utilities for the application.
 """
 import math
-from flask import request, url_for
+from flask import request
 
 class Pagination:
     """Pagination class for MongoDB queries."""

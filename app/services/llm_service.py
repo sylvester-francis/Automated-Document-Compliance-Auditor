@@ -1,7 +1,7 @@
 # app/services/llm_service.py
 import logging
 import random
-from typing import Dict, Any
+from typing import Dict
 from flask import current_app
 from anthropic import Anthropic
 
@@ -64,7 +64,7 @@ def generate_suggestion(document: Dict, issue: Dict) -> str:
         # If paragraph not found, try using document text
         if not paragraph_text and document.get("text"):
             paragraph_text = document.get("text")
-            logger.info(f"Using full document text as paragraph not found")
+            logger.info("Using full document text as paragraph not found")
         
         if not paragraph_text:
             logger.error(f"Could not find paragraph with ID: {paragraph_id}")

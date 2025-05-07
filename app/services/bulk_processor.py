@@ -7,7 +7,6 @@ This is especially useful for processing patient records or medical document set
 
 import logging
 import threading
-import queue
 import uuid
 from typing import Dict, List, Any
 from datetime import datetime

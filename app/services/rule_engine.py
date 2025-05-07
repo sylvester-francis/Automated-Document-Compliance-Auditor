@@ -1,14 +1,19 @@
 import uuid
-from typing import Dict, List, Any, Set
+import re
+import json
+import logging
+from typing import Dict, List, Any
 from enum import Enum
 from app.extensions import mongo
+
+logger = logging.getLogger(__name__)
 
 class RuleType(Enum):
     REGEX = "regex"
     KEYWORD = "keyword"
 
 class ComplianceIssue:
-    def __init__(self, issue_id: str, rule_id: str, paragraph_id: str, description: str, 
+    def __init__(self, issue_id: str, rule_id: str, paragraph_id: str, description: str,
                  severity: str, compliance_type: str, suggestions: List[str] = None):
         self.issue_id = issue_id
         self.rule_id = rule_id
@@ -115,7 +120,6 @@ def get_compliance_rules(compliance_types: List[str]) -> List[Dict]:
 
 def check_regex_rule(rule, paragraph):
     """Check if paragraph matches a regex rule"""
-    import re
     # Safely get text from paragraph
     text = ""
     if isinstance(paragraph, dict):
@@ -173,12 +177,12 @@ def check_document_compliance(document: Dict, compliance_types: List[str]) -> Di
     
     # Handle case where paragraphs might be a string instead of a list
     if isinstance(paragraphs, str):
-        import json
         try:
             # Try to parse as JSON
             paragraphs = json.loads(paragraphs)
-        except:
+        except json.JSONDecodeError as e:
             # If parsing fails, create a single paragraph
+            logger.warning(f"Failed to parse paragraphs as JSON: {str(e)}")
             paragraphs = [{"id": "p1", "text": paragraphs}]
     
     # Ensure each paragraph has an id and text field
@@ -219,7 +223,7 @@ def check_document_compliance(document: Dict, compliance_types: List[str]) -> Di
                     description=rule.description,
                     severity=rule.severity,
                     compliance_type=rule.compliance_type,
-                    suggestions=[] # Initialize with empty list to ensure the button appears
+                    suggestions=[]  # Initialize with empty list to ensure the button appears
                 )
                 issues.append(issue.to_dict())
                 paragraphs_with_issues.add(paragraph.get("id", "unknown"))

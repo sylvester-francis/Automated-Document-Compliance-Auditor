@@ -1,13 +1,12 @@
 """
 API routes for the application.
 """
-from flask import Blueprint, request, jsonify, current_app, send_file
+from flask import Blueprint, request, jsonify, send_file
 from bson.json_util import dumps
 import json
-import os
 
 from app.utils.error_handler import error_handler, AppError, NotFoundError
-from app.utils.security import require_api_key, sanitize_input, validate_id
+from app.utils.security import require_api_key, validate_id
 from app.utils.rate_limiter import api_rate_limit, rate_limit
 from app.utils.pdf_export import generate_compliance_pdf, generate_document_pdf
 

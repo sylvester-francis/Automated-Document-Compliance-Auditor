@@ -7,10 +7,8 @@ Tailored for processing healthcare-related documents with a focus on compliance 
 
 import io
 import logging
-from typing import List, Dict, Any
 
 # Common libraries for PDF processing
-import PyPDF2
 from PyPDF2 import PdfReader
 
 logger = logging.getLogger(__name__)

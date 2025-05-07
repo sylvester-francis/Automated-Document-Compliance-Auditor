@@ -1,8 +1,10 @@
 # app/routes/compliance.py
 
-from flask import Blueprint, render_template, request, jsonify, current_app,make_response
+from flask import Blueprint, render_template, request, jsonify, current_app, make_response
 from app.services.rule_engine import check_document_compliance
+import os
 from datetime import datetime
+from werkzeug.utils import secure_filename
 from app.extensions import mongo
 
 compliance_bp = Blueprint('compliance', __name__, url_prefix='/compliance')

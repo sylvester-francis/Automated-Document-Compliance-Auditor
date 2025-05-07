@@ -1,13 +1,12 @@
-from flask import Blueprint, render_template, request, current_app, redirect, url_for, flash, jsonify, session
-from flask_wtf.csrf import CSRFProtect, validate_csrf
+from flask import Blueprint, render_template, request, current_app, redirect, url_for, flash, jsonify
+from flask_wtf.csrf import validate_csrf
 import os
 from werkzeug.utils import secure_filename
 from app.services.document_service import process_document
 from app.utils.pagination import get_pagination
 from app.utils.form_validation import validate_document_upload
 from app.utils.error_handler import error_handler
-from app.utils.cache import cache_document, invalidate_cache
-from app.utils.security import csrf
+from app.utils.cache import cache_document
 
 documents_bp = Blueprint('documents', __name__, url_prefix='/documents')
 
@@ -158,7 +157,6 @@ def upload_document():
 def view_document(document_id):
     """View a document's details"""
     from app.extensions import mongo
-    from app.utils.error_handler import NotFoundError
     
     document = mongo.db.documents.find_one({'_id': document_id})
     if not document:

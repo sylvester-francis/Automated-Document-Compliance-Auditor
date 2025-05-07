@@ -6,7 +6,6 @@ import uuid
 import time
 import logging
 from functools import wraps
-from flask import current_app
 
 logger = logging.getLogger(__name__)
 

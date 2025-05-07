@@ -1,7 +1,7 @@
 # app/services/mock_llm_service.py
 import logging
 import random
-from typing import Dict, Any
+from typing import Dict
 
 logger = logging.getLogger(__name__)
 

@@ -1,7 +1,7 @@
 """
 Security utilities for the application.
 """
-from flask import Flask, request, abort
+from flask import request, abort
 from flask_wtf.csrf import CSRFProtect
 import re
 import bleach
