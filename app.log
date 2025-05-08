@@ -493,3 +493,12 @@
 2025-05-07 21:43:23 - app.config - INFO - Using real LLM service (USE_MOCK_LLM=False)
 2025-05-07 21:43:23 - werkzeug - WARNING -  * Debugger is active!
 2025-05-07 21:43:23 - werkzeug - INFO -  * Debugger PIN: 172-796-075
+2025-05-07 21:59:40 - werkzeug - INFO -  * Detected change in '/Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/tests/test_api.py', reloading
+2025-05-07 21:59:40 - werkzeug - INFO -  * Restarting with stat
+2025-05-07 21:59:40 - app.config - INFO - Looking for .env file at: /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-07 21:59:40 - app.config - INFO - Found .env file at /Users/sylvester/Desktop/Automated-Document-Compliance-Auditor/instance/.env
+2025-05-07 21:59:40 - app.config - INFO - Anthropic API key loaded successfully with length: 108
+2025-05-07 21:59:40 - app.config - INFO - Config loaded Anthropic API key with length: 108
+2025-05-07 21:59:40 - app.config - INFO - Using real LLM service (USE_MOCK_LLM=False)
+2025-05-07 21:59:41 - werkzeug - WARNING -  * Debugger is active!
+2025-05-07 21:59:41 - werkzeug - INFO -  * Debugger PIN: 172-796-075

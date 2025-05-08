@@ -1,7 +1,6 @@
 """
 Tests for the application routes.
 """
-import io
 from app.extensions import mongo
 
 
