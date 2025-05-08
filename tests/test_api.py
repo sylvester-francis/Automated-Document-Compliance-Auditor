@@ -3,7 +3,6 @@ Tests for the API endpoints.
 """
 import io
 import json
-import pytest
 from app.extensions import mongo
 
 

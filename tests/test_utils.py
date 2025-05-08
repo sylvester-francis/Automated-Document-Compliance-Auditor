@@ -1,7 +1,6 @@
 """
 Tests for the utility functions.
 """
-import pytest
 from app.utils.text_processing import extract_paragraphs_with_ids, clean_text
 from app.utils.pagination import get_pagination
 from app.models.document import Document, DocumentType, ComplianceStatus

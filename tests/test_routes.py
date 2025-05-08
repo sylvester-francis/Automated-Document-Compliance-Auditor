@@ -2,7 +2,6 @@
 Tests for the application routes.
 """
 import io
-import pytest
 from app.extensions import mongo
 
 

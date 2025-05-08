@@ -1,7 +1,6 @@
 """
 Tests for the rule engine.
 """
-import pytest
 from app.services.rule_engine import (
     check_document_compliance,
     check_regex_rule,

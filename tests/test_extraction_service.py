@@ -3,7 +3,6 @@ Tests for the extraction service.
 """
 import os
 import tempfile
-import pytest
 from app.services.extraction_service import (
     get_extraction_service,
     extract_document_text
