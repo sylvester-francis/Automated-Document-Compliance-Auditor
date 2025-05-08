@@ -31,6 +31,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
     needs: lint
+    services:
+      mongodb:
+        image: mongo:4.4
+        ports:
+          - 27017:27017
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
@@ -45,6 +50,8 @@ jobs:
           pip install pytest pytest-cov
       - name: Test with pytest
         run: |
+          # Add the current directory to PYTHONPATH to make app imports work
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
           pytest --cov=app tests/
         env:
           USE_MOCK_LLM: 'True'
@@ -77,9 +84,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=sha
+            type=sha,format=short
             type=ref,event=branch
             type=ref,event=pr
             latest
@@ -94,17 +99,5 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-    steps:
-      - name: Deploy to production
-        run: |
-          echo "Deploying to production server..."
-          # Add deployment commands here, such as:
-          # - SSH into your server
-          # - Pull the latest Docker image
-          # - Restart the container
-          # Example (commented out):
-          # ssh ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "cd /path/to/app && docker-compose pull && docker-compose up -d"
+  # Note: Deployment stage has been removed as there is no deployment target
+  # The pipeline now focuses on code quality (lint), testing, and building the Docker image

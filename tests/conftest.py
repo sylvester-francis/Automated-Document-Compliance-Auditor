@@ -2,10 +2,15 @@
 Test fixtures for the Automated Document Compliance Auditor application.
 """
 import os
+import sys
 import tempfile
 import pytest
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
+
+# Add the parent directory to sys.path to make app imports work in both local and CI environments
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from app import create_app
 from app.extensions import mongo
 
