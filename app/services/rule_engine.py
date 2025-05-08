@@ -114,7 +114,12 @@ def get_compliance_rules(compliance_types: List[str]) -> List[Dict]:
 
 def check_regex_rule(rule, paragraph):
     # Check if paragraph matches a regex rule
-    text = paragraph.get("text", "")
+    # Handle both dictionary and string paragraphs
+    if isinstance(paragraph, dict):
+        text = paragraph.get("text", "")
+    else:
+        text = str(paragraph)
+        
     if not text:
         return False
     
@@ -130,12 +135,18 @@ def check_regex_rule(rule, paragraph):
 
 def check_keyword_rule(rule, paragraph):
     # Check if paragraph does NOT contain any of the required keywords
-    text = paragraph.get("text", "").lower()
+    # Handle both dictionary and string paragraphs
+    if isinstance(paragraph, dict):
+        text = paragraph.get("text", "")
+    else:
+        text = str(paragraph)
+        
     if not text:
         return False
     
     # Rule matches if NONE of the keywords are present
     # (meaning there's a compliance issue)
+    text = text.lower()
     return not any(keyword.lower() in text for keyword in rule.keywords)
 
 def check_document_compliance(document: Dict, compliance_types: List[str]) -> Dict[str, Any]:
