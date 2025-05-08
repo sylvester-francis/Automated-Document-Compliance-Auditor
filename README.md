@@ -483,6 +483,33 @@ All API requests require an API key to be included in the request headers:
 X-API-Key: your-api-key
 ```
 
+### Generating an API Key
+
+To generate and configure an API key for the application:
+
+1. **Create a secure random API key**:
+
+```bash
+python -c "import secrets; print(secrets.token_hex(32))"
+```
+
+2. **Add the API key to your `.env` file** in the `instance` directory:
+
+```bash
+# Create the instance directory if it doesn't exist
+mkdir -p instance
+
+# Add the API key to your .env file
+echo "API_KEY=your_generated_key_here" >> instance/.env
+```
+
+3. **Restart the application** to load the new API key from the environment.
+
+For security best practices:
+- Generate a unique API key for each client or service
+- Rotate API keys periodically
+- Never share API keys in public repositories or insecure channels
+
 ### Endpoints
 
 - `GET /api/documents` - List all documents with pagination and filtering
