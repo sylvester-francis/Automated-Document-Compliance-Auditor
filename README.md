@@ -438,6 +438,13 @@ ruff check --fix .
 flake8 .
 ```
 
+### Known Issues
+
+- PDF export occasionally fails with large documents
+- Some HIPAA rules need refinement for better accuracy
+- Mobile view has alignment issues on small screens
+- MongoDB connection pooling needs optimization
+
 ### CI/CD Pipeline
 
 This project includes a GitHub Actions workflow for continuous integration and deployment. The workflow is defined in `.github/workflows/ci-cd.yml` and includes the following stages:
@@ -455,18 +462,17 @@ If you're using the deployment step, you'll need to set up the following GitHub 
 - `DEPLOY_HOST`: SSH host for deployment (if using SSH deployment)
 
 ## Future Enhancements
-### Potential enhancements for this project:
 
 1. Support for additional document formats (HTML, XML, etc.)
 2. More compliance standards (SOX, CCPA, etc.)
-3. Machine learning model for automatic classification of document type
-4. User-defined custom compliance rules with a rule builder interface
-5. Advanced analytics dashboard with compliance trends and insights
-6. Integration with document management systems (SharePoint, Google Drive)
-7. Multi-language support for international compliance standards
-8. Collaborative review features with user roles and permissions
-9. Automated scheduled compliance checks for document repositories
-10. Advanced Claude prompt engineering for even more precise suggestions
+3. Machine learning model for document classification
+4. Custom compliance rules with a rule builder interface
+5. Analytics dashboard with compliance trends
+6. Integration with document management systems
+7. Multi-language support
+8. Collaborative review features
+9. Automated scheduled compliance checks
+10. Advanced prompt engineering for more precise suggestions
 
 ## API Documentation
 
@@ -517,4 +523,3 @@ For security best practices:
 - `GET /api/documents/{document_id}/compliance/export/pdf` - Export compliance report as PDF
 - `GET /api/rules` - List all compliance rules
 - `GET /api/stats` - Get application statistics
-

@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 class RuleType(Enum):
     REGEX = "regex"
     KEYWORD = "keyword"
+    # TODO: Add semantic rule type for more advanced checks
 
 class ComplianceIssue:
     def __init__(self, issue_id: str, rule_id: str, paragraph_id: str, description: str,
@@ -35,16 +36,7 @@ class ComplianceIssue:
         }
 
 def get_compliance_rules(compliance_types: List[str]) -> List[Dict]:
-    """
-    Get compliance rules for specified compliance types
-    
-    Args:
-    
-        compliance_types: List of compliance type names
-        
-    Returns:
-        List of compliance rule objects
-    """
+    """Get compliance rules for specified compliance types"""
     # In a real application, these would come from a database
     rules = []
     
@@ -110,6 +102,8 @@ def get_compliance_rules(compliance_types: List[str]) -> List[Dict]:
             }
         ])
     
+    # FIXME: Need to add more CCPA rules here when we implement that standard
+    
     # Convert dictionaries to objects
     rule_objects = []
     for rule_dict in rules:
@@ -119,35 +113,25 @@ def get_compliance_rules(compliance_types: List[str]) -> List[Dict]:
     return rule_objects
 
 def check_regex_rule(rule, paragraph):
-    """Check if paragraph matches a regex rule"""
-    # Safely get text from paragraph
-    text = ""
-    if isinstance(paragraph, dict):
-        text = paragraph.get("text", "")
-    elif isinstance(paragraph, str):
-        text = paragraph
-        
-    # If rule doesn't have a pattern attribute, return False (no issue)
-    if not hasattr(rule, 'pattern'):
+    # Check if paragraph matches a regex rule
+    text = paragraph.get("text", "")
+    if not text:
         return False
-        
-    pattern = re.compile(rule.pattern, re.IGNORECASE)
-    return not bool(pattern.search(text))
+    
+    # Rule matches if regex pattern is NOT found
+    # (meaning there's a compliance issue)
+    try:
+        pattern = re.compile(rule.pattern, re.IGNORECASE)
+        return not bool(pattern.search(text))
+    except Exception as e:
+        # Just log and return False if regex is invalid
+        logger.error(f"Invalid regex pattern in rule {rule.rule_id}: {str(e)}")
+        return False
 
 def check_keyword_rule(rule, paragraph):
-    """Check if paragraph does NOT contain any of the required keywords"""
-    # Safely get text from paragraph
-    if isinstance(paragraph, dict):
-        text = paragraph.get("text", "")
-    elif isinstance(paragraph, str):
-        text = paragraph
-    else:
-        text = ""
-    
-    text = text.lower()
-    
-    # If rule doesn't have keywords attribute, return False (no issue)
-    if not hasattr(rule, 'keywords'):
+    # Check if paragraph does NOT contain any of the required keywords
+    text = paragraph.get("text", "").lower()
+    if not text:
         return False
     
     # Rule matches if NONE of the keywords are present
@@ -185,6 +169,7 @@ def check_document_compliance(document: Dict, compliance_types: List[str]) -> Di
             logger.warning(f"Failed to parse paragraphs as JSON: {str(e)}")
             paragraphs = [{"id": "p1", "text": paragraphs}]
     
+    # TODO: Refactor this paragraph normalization logic into a separate function
     # Ensure each paragraph has an id and text field
     valid_paragraphs = []
     for i, p in enumerate(paragraphs):

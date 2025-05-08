@@ -24,6 +24,7 @@ class PdfExporter:
     def __init__(self):
         """Initialize PDF exporter"""
         self.styles = getSampleStyleSheet()
+        # FIXME: Need to add custom styles for better report formatting
     
     def generate_compliance_report(self, document_id_or_doc: Union[str, Dict]) -> bytes:
         """
@@ -102,6 +103,9 @@ class PdfExporter:
                 
             elements.append(Paragraph(score_text, self.styles['Normal']))
             elements.append(Spacer(1, 0.2 * inch))
+            
+            # TODO: Add pie chart for compliance score visualization
+            # Will implement this in the next sprint
             
             # Add compliance issues section
             elements.append(Paragraph("Compliance Issues", self.styles['Heading3']))

@@ -10,15 +10,8 @@ logger.setLevel(logging.INFO)
 
 def generate_suggestion(document: Dict, issue: Dict) -> str:
     """
-    Generate suggestion for fixing a compliance issue using Anthropic's Claude
-    If API key is not configured or USE_MOCK_LLM is set to True, falls back to mock suggestions
-    
-    Args:
-        document: Document data
-        issue: Compliance issue data
-        
-    Returns:
-        Suggestion text
+    Generate compliance fix suggestions using Claude API or mock data.
+    Falls back to mock if API key is missing or USE_MOCK_LLM is enabled.
     """
     # Print to standard output to ensure it's visible
     print("===== LLM SERVICE CALL STARTED =====")
@@ -110,14 +103,7 @@ def generate_suggestion(document: Dict, issue: Dict) -> str:
 
 def generate_mock_suggestion(document: Dict, issue: Dict) -> str:
     """
-    Generate a mock suggestion for testing without using Anthropic API
-    
-    Args:
-        document: Document data
-        issue: Compliance issue data
-        
-    Returns:
-        Mock suggestion text
+    Generate mock suggestions for testing without using the API.
     """
     logger.info(f"Generating mock suggestion for issue: {issue.get('issue_id')}")
     

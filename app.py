@@ -10,7 +10,6 @@ logging.basicConfig(
         logging.StreamHandler()
     ]
 )
-# os.environ['OPENAI_API_KEY'] = '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'
 app = create_app()
 
 if __name__ == '__main__':
