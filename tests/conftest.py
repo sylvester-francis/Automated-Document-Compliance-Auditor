@@ -26,6 +26,7 @@ def app():
         'SECRET_KEY': 'test_secret_key',
         'MONGO_URI': 'mongodb://localhost:27017/test_compliance_auditor',
         'ANTHROPIC_API_KEY': 'test_api_key',
+        'API_KEY': 'test_api_key',  # Add API key for API authentication
         'USE_MOCK_LLM': True,  # Use mock LLM for testing
         'UPLOAD_FOLDER': tempfile.mkdtemp(),
         'MAX_CONTENT_LENGTH': 16 * 1024 * 1024,  # 16MB max upload

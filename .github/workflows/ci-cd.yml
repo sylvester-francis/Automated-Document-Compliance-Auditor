@@ -57,6 +57,7 @@ jobs:
           USE_MOCK_LLM: 'True'
           MONGO_URI: 'mongodb://localhost:27017/test_db'
           SECRET_KEY: 'test_secret_key'
+          API_KEY: 'test-api-key'
 
   build:
     runs-on: ubuntu-latest
