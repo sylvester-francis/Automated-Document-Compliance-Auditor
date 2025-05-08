@@ -28,8 +28,6 @@ The Automated Document Compliance Auditor is a Flask-based web application that 
 
 ## Application Screenshots
 
-### Available Screenshots
-
 #### Homepage/Dashboard
 ![Main Dashboard](static/images/screenshots/main-dashboard.png)
 *The main landing page showing the application overview and navigation options*
@@ -281,9 +279,8 @@ Automated-Document-Compliance-Auditor/
 │   │   ├── document_classifier.py # Document type classification
 │   │   ├── document_service.py    # Document handling
 │   │   ├── extraction_service.py  # Text extraction
-│   │   ├── llm_service.py         # Claude API integration
-│   │   ├── mock_llm_service.py    # Mock LLM for testing
-│   │   ├── pdf_exporter.py        # PDF report generation
+│   │   ├── llm_service.py         # LLM integration with mock support
+│   │   ├── pdf_exporter.py        # PDF export generation
 │   │   ├── rule_engine.py         # Compliance rules
 │   │   └── seed_service.py        # Data seeding
 │   ├── static/             # Static assets
