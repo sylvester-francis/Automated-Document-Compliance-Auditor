@@ -28,46 +28,28 @@ The Automated Document Compliance Auditor is a Flask-based web application that 
 
 ## Application Screenshots
 
-### Document List View
-<!-- Replace with actual screenshot of the document list page -->
+### Available Screenshots
+
+#### Homepage/Dashboard
+![Main Dashboard](static/images/screenshots/main-dashboard.png)
+*The main landing page showing the application overview and navigation options*
+
+#### Document List View
 ![Document List](static/images/screenshots/document-list.png)
 *Browse uploaded documents with filtering and sorting options*
 
-### Document Upload
-<!-- Replace with actual screenshot of the document upload page -->
+#### Document Upload Interface
 ![Document Upload](static/images/screenshots/document-upload.png)
 *Upload new documents for compliance checking*
 
-### Document View
-<!-- Replace with actual screenshot of the document view page -->
+#### Document Detail View
 ![Document View](static/images/screenshots/document-view.png)
 *View document content with compliance issues highlighted*
 
-### Compliance Check Results
-<!-- Replace with actual screenshot of the compliance results page -->
+#### Compliance Check Results
 ![Compliance Results](static/images/screenshots/compliance-results.png)
 *View detailed compliance issues and get AI-powered suggestions*
 
-### AI Suggestions
-<!-- Replace with actual screenshot of AI suggestions being generated -->
-![AI Suggestions](static/images/screenshots/ai-suggestions.png)
-*Generate AI-powered suggestions for addressing compliance issues*
-
-### Dark Mode Support
-<!-- Replace with actual screenshot of the application in dark mode -->
-![Dark Mode](static/images/screenshots/dark-mode.png)
-*Toggle between light and dark mode for comfortable viewing*
-
-### PDF Export
-<!-- Replace with actual screenshot of a PDF export -->
-![PDF Export](static/images/screenshots/pdf-export.png)
-*Export compliance reports as PDF documents*
-
-> **Instructions for adding screenshots:**
-> 1. Take screenshots of each of the above application views
-> 2. Save them to the `static/images/screenshots/` directory with the filenames shown above
-> 3. Make sure the screenshots clearly demonstrate the feature being highlighted
-> 4. Recommended resolution: 1280x720 or higher
 
 ## System Architecture
 
@@ -83,13 +65,13 @@ The Automated Document Compliance Auditor is a Flask-based web application that 
 │  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │
 │  │   Routes    │───▶│  Services   │───▶│  Document Parser    │  │
 │  └─────────────┘    └─────────────┘    └─────────────────────┘  │
-│         │                  │                      │              │
-│         ▼                  ▼                      ▼              │
+│         │                  │                      │             │
+│         ▼                  ▼                      ▼             │
 │  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │
 │  │ Templates   │    │ Rule Engine │    │ PDF Export Service  │  │
 │  └─────────────┘    └─────────────┘    └─────────────────────┘  │
-│                           │                                      │
-└───────────────────────────┼──────────────────────────────────────┘
+│                           │                                     │
+└───────────────────────────┼─────────────────────────────────────┘
                             │
            ┌────────────────┼────────────────┐
            │                │                │
@@ -289,14 +271,19 @@ Automated-Document-Compliance-Auditor/
 │   │   └── document.py     # Document models
 │   ├── routes/             # View functions
 │   │   ├── __init__.py
-│   │   ├── main.py         # Main routes
+│   │   ├── api.py          # API endpoints
+│   │   ├── compliance.py   # Compliance checking routes
 │   │   ├── documents.py    # Document management routes
-│   │   └── compliance.py   # Compliance checking routes
+│   │   └── main.py         # Main routes
 │   ├── services/           # Business logic
 │   │   ├── __init__.py
+│   │   ├── bulk_processor.py      # Batch document processing
+│   │   ├── document_classifier.py # Document type classification
 │   │   ├── document_service.py    # Document handling
 │   │   ├── extraction_service.py  # Text extraction
-│   │   ├── llm_service.py         # Claude API integration with fallback mock service
+│   │   ├── llm_service.py         # Claude API integration
+│   │   ├── mock_llm_service.py    # Mock LLM for testing
+│   │   ├── pdf_exporter.py        # PDF report generation
 │   │   ├── rule_engine.py         # Compliance rules
 │   │   └── seed_service.py        # Data seeding
 │   ├── static/             # Static assets
@@ -312,26 +299,51 @@ Automated-Document-Compliance-Auditor/
 │   │   │   ├── results.html        # Results page
 │   │   │   ├── results_partial.html # HTMX partial for results
 │   │   │   └── suggestions_partial.html # HTMX partial for suggestions
-│   │   └── documents/      # Document templates
-│   │       ├── list.html   # Document list
-│   │       ├── upload.html # Upload form
-│   │       └── view.html   # Document viewer
+│   │   ├── components/     # Reusable UI components
+│   │   │   └── pagination.html     # Pagination component
+│   │   ├── documents/      # Document templates
+│   │   │   ├── bulk_upload.html    # Bulk upload form
+│   │   │   ├── list.html          # Document list
+│   │   │   ├── list_partial.html   # HTMX partial for document list
+│   │   │   ├── upload.html        # Upload form
+│   │   │   └── view.html          # Document viewer
+│   │   └── reports/        # Report templates
+│   │       ├── compliance_pdf.html # Compliance report template
+│   │       └── document_pdf.html   # Document report template
 │   └── utils/              # Utility functions
 │       ├── __init__.py
 │       ├── background_tasks.py # Background task processing
-│       ├── cache.py        # Caching utilities
-│       ├── error_handler.py # Centralized error handling
-│       ├── form_validation.py # Form validation utilities
-│       ├── pdf_export.py   # PDF export utilities
-│       ├── pdf_utils.py    # PDF processing utilities
-│       ├── pagination.py   # Pagination utilities
-│       ├── rate_limiter.py # Rate limiting utilities
-│       ├── security.py     # Security utilities
+│       ├── cache.py           # Caching utilities
+│       ├── document_extractor.py # Document extraction utilities
+│       ├── error_handler.py   # Centralized error handling
+│       ├── form_validation.py # Input validation
+│       ├── pagination.py      # Pagination utilities
+│       ├── pdf_export.py      # PDF export utilities
+│       ├── pdf_utils.py       # PDF utility functions
+│       ├── rate_limiter.py    # API rate limiting
+│       ├── security.py        # Security utilities
 │       └── text_processing.py # Text processing utilities
-├── instance/              # Instance-specific data
-│   └── uploads/           # Uploaded documents
-├── app.py                 # Application runner
+├── instance/              # Instance-specific files
+│   ├── uploads/           # Uploaded documents
+│   └── temp/              # Temporary files
+├── screenshots/           # Application screenshots
+├── static/                # Global static files
+│   └── images/           # Image assets
+│       └── screenshots/    # Screenshot images for documentation
+├── testdocuments/         # Test document files
+├── tests/                 # Test suite
+│   ├── __init__.py
+│   ├── conftest.py        # Test configuration
+│   ├── test_api.py        # API tests
+│   ├── test_document_service.py # Document service tests
+│   ├── test_extraction_service.py # Extraction service tests
+│   ├── test_routes.py     # Route tests
+│   ├── test_rule_engine.py # Rule engine tests
+│   └── test_utils.py      # Utility tests
+├── app.py                 # Application entry point
 ├── app.log                # Application logs
+├── Dockerfile             # Docker configuration
+├── docker-compose.yml     # Docker Compose configuration
 ├── requirements.txt       # Python dependencies
 └── README.md              # Project documentation
 ```
