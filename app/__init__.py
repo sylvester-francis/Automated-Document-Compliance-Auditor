@@ -68,8 +68,17 @@ def create_app(test_config=None):
     
     @app.errorhandler(404)
     def not_found_error(error):
+        # Log detailed information about the request causing the 404
+        app.logger.warning(f"404 Error: {request.method} {request.url}")
+        app.logger.warning(f"Referrer: {request.referrer}")
+        app.logger.warning(f"User Agent: {request.user_agent}")
+        app.logger.warning(f"Remote IP: {request.remote_addr}")
+        
+        # For API requests, return JSON response
         if request.path.startswith('/api/'):
             return jsonify({'error': 'Not found', 'message': str(error), 'status_code': 404}), 404
+            
+        # For regular requests, use the error handler
         return handle_error(NotFoundError('The requested resource was not found'))
     
     @app.errorhandler(500)
